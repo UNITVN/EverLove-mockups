@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EverLove - Love Touch</title>
+    <link rel="stylesheet" href=".design/device-chrome.css">
+    <link rel="stylesheet" href=".design/device-ios.css">
+    <style>
+        /* Per-mockup design tokens. design-system.html (if present in the
+           working directory) overrides these. Keep in sync with
+           components/ios/01-base-tokens.md. */
+        :root {
+            --color-bg: #FFFFFF;
+            --color-text: #000000;
+            --color-text-secondary: #6B7280;
+            --color-island: #000000;
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* iOS HIG type ramp */
+            --text-caption2:    11px;
+            --text-caption1:    12px;
+            --text-footnote:    13px;
+            --text-subheadline: 15px;
+            --text-callout:     16px;
+            --text-body:        17px;
+            --text-title3:      20px;
+            --text-title2:      22px;
+            --text-title1:      28px;
+            --text-largetitle:  34px;
+            --text-md:          var(--text-body);
+        }
+:root{
+  --color-bg:#FFFFFF; --color-text:#2A0F2E; --color-text-secondary:#85708A;
+  --plum:#4D1655; --plum-deep:#2F0D36; --plum-700:#6A2573;
+  --orchid:#D985D0; --orchid-deep:#B95AB0; --orchid-soft:#EEC3E9;
+  --blush:#F8E3F5; --blush-50:#FDF4FC; --line:#F0DEEC;
+  --ink:#2A0F2E; --muted:#85708A;
+  --ok:#2FB26B; --ok-bg:#E3F6EB; --gold:#F2B03B; --rose:#F0507F;
+  --shadow-card:0 6px 24px rgba(77,22,85,.08);
+  --shadow-btn:0 8px 20px rgba(77,22,85,.28);
+}
+.device{color:var(--ink)}
+.screen{min-height:932px;display:flex;flex-direction:column;position:relative}
+.wash{background:linear-gradient(180deg,#F5CFF0 0%,#FAE4F7 28%,#FFFFFF 62%)}
+.av{border-radius:50%;display:block;flex-shrink:0}
+button{font-family:inherit;color:inherit}
+
+.t-large{font-size:var(--text-largetitle);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--plum-deep)}
+.t-title{font-size:var(--text-title1);font-weight:700;line-height:1.14;letter-spacing:-.028em;color:var(--plum-deep)}
+.t-sub{font-size:var(--text-subheadline);line-height:1.35;color:var(--muted)}
+
+.btn{height:54px;width:100%;border:none;border-radius:27px;font-size:var(--text-body);font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.98)}
+.btn-plum{background:var(--plum);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-soft{background:rgba(255,255,255,.72);color:var(--plum);box-shadow:inset 0 0 0 1px rgba(77,22,85,.10)}
+.btn-orchid{background:var(--orchid);color:var(--plum-deep)}
+.btn-white{background:#fff;color:var(--plum)}
+.btn[disabled]{opacity:.4;box-shadow:none}
+.link{background:none;border:none;font-size:var(--text-subheadline);font-weight:600;color:var(--plum);cursor:pointer;min-height:44px}
+
+.ibtn{width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--plum);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(77,22,85,.10);cursor:pointer;position:relative;flex-shrink:0}
+.ibtn.ghost{background:none;box-shadow:none}
+.dot{position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 2px #fff}
+
+.card{background:#fff;border-radius:24px;box-shadow:var(--shadow-card)}
+.chip{height:32px;padding:0 12px;border-radius:16px;background:var(--blush);color:var(--plum);
+  font-size:var(--text-footnote);font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:none}
+.chip.on{background:var(--plum);color:#fff}
+.chip svg{flex-shrink:0}
+.seg{display:flex;gap:6px;flex:1}
+.seg i{flex:1;height:4px;border-radius:2px;background:rgba(77,22,85,.14)}
+.seg i.on{background:var(--plum)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;padding:0 20px 12px}
+.sec h2{font-size:var(--text-title3);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
+.sec a{font-size:var(--text-subheadline);font-weight:600;color:var(--orchid-deep)}
+.crown{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--plum-deep);color:var(--gold)}
+
+
+.coin{width:var(--s,20px);height:var(--s,20px);border-radius:50%;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;color:#fff;
+  background:radial-gradient(circle at 35% 30%,#FFE0A0,var(--gold) 58%,#D98E1A);box-shadow:inset 0 0 0 2px rgba(255,255,255,.38)}
+.nav{position:sticky;top:0;z-index:10;padding:calc(59px + 8px) 20px 8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav .mid{flex:1;text-align:center;font-size:var(--text-body);font-weight:700;color:var(--plum-deep);letter-spacing:-.01em}
+.wallet{height:40px;padding:0 14px 0 8px;border-radius:20px;background:#fff;box-shadow:0 2px 10px rgba(77,22,85,.10);display:flex;align-items:center;gap:8px;
+  font-size:var(--text-body);font-weight:700;color:var(--plum-deep);border:none}
+.ovl{display:flex}.ovl .av{box-shadow:0 0 0 3px #fff}.ovl .av+.av{margin-left:-12px}
+.pd{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:var(--text-caption2);font-weight:700;letter-spacing:.02em}
+.tag.free{background:var(--ok-bg);color:#1B8A4F}
+.tag.soon{background:var(--blush);color:var(--orchid-deep)}
+
+body{background:#1B0824}
+.device{background:#1B0824;color:#fff}
+.device .status-bar{color:#fff}.device .home-indicator{background:#fff}
+.screen.night{background:radial-gradient(70% 45% at 50% 50%,#5E1D68 0%,#2A0C33 55%,#1B0824 100%);overflow:hidden}
+.nav .mid{color:#fff}
+.nav .ibtn{background:rgba(255,255,255,.12);color:#fff;box-shadow:none}
+.pro{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;background:rgba(242,176,59,.16);color:var(--gold);font-size:var(--text-caption1);font-weight:700}
+.stat{position:absolute;left:0;right:0;text-align:center}
+.pt{position:absolute;left:50%;width:150px;height:150px;margin-left:-75px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.pt::before,.pt::after{content:"";position:absolute;border-radius:50%;border:2px solid currentColor;opacity:.5;animation:rip 2.4s ease-out infinite}
+.pt::before{inset:20px}.pt::after{inset:20px;animation-delay:1.2s}
+@keyframes rip{from{transform:scale(.6);opacity:.7}to{transform:scale(1.5);opacity:0}}
+.pt .core{width:74px;height:74px;border-radius:50%;background:currentColor;box-shadow:0 0 50px 12px currentColor;position:relative;display:flex;align-items:center;justify-content:center}
+.pt .core img{width:58px;height:58px;border:3px solid #fff}
+.pt.a{color:#B85AAF}
+.pt.b{color:var(--orchid)}
+.who{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;font-size:var(--text-footnote);font-weight:700;color:#fff;background:rgba(255,255,255,.14);height:28px;padding:0 12px;border-radius:14px;white-space:nowrap}
+.hrt{position:absolute;left:50%;top:50%;margin:-98px 0 0 -90px;color:var(--rose);filter:drop-shadow(0 0 28px rgba(240,80,127,.8));animation:beat 1.2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}18%{transform:scale(1.12)}36%{transform:scale(1)}54%{transform:scale(1.08)}}
+.thread{position:absolute;left:50%;top:300px;height:340px;width:0;border-left:2px dashed rgba(238,195,233,.35)}
+@media (prefers-reduced-motion:reduce){.hrt,.pt::before,.pt::after{animation:none!important}}
+.dock{position:absolute;left:20px;right:20px;bottom:44px;display:flex;align-items:center;gap:10px}
+.dock .pill{flex:1;height:52px;border-radius:26px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:var(--text-subheadline);color:#fff;border:none}
+.dock .pill.on{background:#fff;color:var(--plum)}
+
+    </style>
+</head>
+<body>
+    <div class="device" data-platform="ios" data-form-factor="phone">
+        <!-- Dynamic Island (always on top) -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <svg width="20" height="13" viewBox="0 0 20 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.3466 1.625C19.3466 1.00368 18.8654 0.5 18.2718 0.5H17.1969C16.6033 0.5 16.1221 1.00368 16.1221 1.625V11.375C16.1221 11.9963 16.6033 12.5 17.1969 12.5H18.2718C18.8654 12.5 19.3466 11.9963 19.3466 11.375V1.625ZM11.8565 2.9H12.9313C13.5249 2.9 14.0061 3.41577 14.0061 4.052V11.348C14.0061 11.9842 13.5249 12.5 12.9313 12.5H11.8565C11.2629 12.5 10.7817 11.9842 10.7817 11.348V4.052C10.7817 3.41577 11.2629 2.9 11.8565 2.9ZM7.49008 5.5H6.41527C5.82167 5.5 5.34046 6.02233 5.34046 6.66667V11.3333C5.34046 11.9777 5.82167 12.5 6.41527 12.5H7.49008C8.08368 12.5 8.56489 11.9777 8.56489 11.3333V6.66667C8.56489 6.02233 8.08368 5.5 7.49008 5.5ZM2.14962 7.9H1.07481C0.481208 7.9 0 8.41487 0 9.05V11.35C0 11.9851 0.481208 12.5 1.07481 12.5H2.14962C2.74322 12.5 3.22443 11.9851 3.22443 11.35V9.05C3.22443 8.41487 2.74322 7.9 2.14962 7.9Z"/></svg>
+                <svg width="18" height="13" viewBox="26.9 0 17.3 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.5408 3.02062C38.0469 3.02072 40.4571 3.92573 42.2734 5.54859C42.4102 5.67388 42.6288 5.6723 42.7635 5.54504L44.0709 4.30497C44.1391 4.24043 44.1771 4.153 44.1766 4.06204C44.176 3.97107 44.1369 3.88407 44.0679 3.82028C39.3008 -0.47342 31.7801 -0.47342 27.0129 3.82028C26.9439 3.88402 26.9047 3.971 26.9041 4.06197C26.9034 4.15293 26.9414 4.24038 27.0095 4.30497L28.3173 5.54504C28.4519 5.67249 28.6707 5.67407 28.8074 5.54859C30.6239 3.92562 33.0344 3.02061 35.5408 3.02062ZM35.539 7.16274C36.9067 7.16265 38.2255 7.66492 39.2393 8.57193C39.3765 8.70066 39.5925 8.69787 39.7261 8.56564L41.0232 7.27077C41.0915 7.20285 41.1294 7.11071 41.1285 7.01496C41.1275 6.91922 41.0877 6.82786 41.018 6.76132C37.9308 3.92401 33.1498 3.92401 30.0626 6.76132C29.9929 6.82786 29.9531 6.91926 29.9522 7.01504C29.9512 7.11081 29.9893 7.20294 30.0577 7.27077L31.3545 8.56564C31.4881 8.69787 31.7041 8.70066 31.8413 8.57193C32.8544 7.66552 34.1722 7.1633 35.539 7.16274ZM38.0803 9.90455C38.0823 10.008 38.0449 10.1076 37.9771 10.1801L35.7838 12.5894C35.7195 12.6602 35.6319 12.7 35.5404 12.7C35.4489 12.7 35.3613 12.6602 35.297 12.5894L33.1033 10.1801C33.0356 10.1076 32.9983 10.0079 33.0003 9.90447C33.0023 9.80107 33.0434 9.70315 33.114 9.63384C34.5147 8.34428 36.5661 8.34428 37.9669 9.63384C38.0373 9.70321 38.0784 9.80115 38.0803 9.90455Z"/></svg>
+                <svg width="27" height="13" viewBox="52.5 0 27 13" fill="none"><rect opacity="0.35" x="52.5474" y="0.5" width="24" height="12" rx="3.8" stroke="currentColor"/><path opacity="0.4" d="M77.9473 4.66666V8.66666C78.752 8.32788 79.2753 7.53979 79.2753 6.66666C79.2753 5.79352 78.752 5.00543 77.9473 4.66666Z" fill="currentColor"/><rect x="53.8474" y="2" width="21" height="9" rx="2.5" fill="currentColor"/></svg>
+            </div>
+        </div>
+
+        <!-- Insert screen content here -->
+        <main class="device-content">
+<div class="screen night" style="min-height:932px">
+  <header class="nav" style="position:relative;z-index:5">
+    <button class="ibtn" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <span class="mid" style="display:flex;flex-direction:column;align-items:center;gap:4px">Love Touch<span class="pro"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 8 4.5 4L12 4l5.5 8L22 8l-2 11H4Z"/></svg>Premium</span></span>
+    <button class="ibtn" aria-label="Skins"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8Z"/></svg></button>
+  </header>
+
+  <div class="who" style="top:140px"><img class="av" style="width:20px;height:20px" src="assets/everlove-memoji-partner.jpg" alt="Minh">Minh · touching</div>
+  <div class="pt a" style="top:178px"><span class="core"><img class="av" src="assets/everlove-memoji-partner.jpg" alt="Minh"></span></div>
+  <div class="thread"></div>
+  <div class="hrt"><svg width="180" height="180" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.700-3.400 6.800-8.600 11.500z"/></svg></div>
+  <div class="pt b" style="top:572px"><span class="core"><img class="av" src="assets/everlove-memoji-linh.jpg" alt="Linh"></span></div>
+
+  <div class="stat" style="top:734px;padding:0 24px">
+    <div style="font-size:30px;font-weight:700;letter-spacing:-.03em">Synced · 0:12</div>
+    <div style="font-size:var(--text-subheadline);color:rgba(255,255,255,.7);margin-top:6px">72 bpm · keep holding, you'll both feel it</div>
+  </div>
+  <div class="dock">
+    <button class="pill on" aria-pressed="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 8 2 2-2 2 2 2-2 2M22 8l-2 2 2 2-2 2 2 2"/><rect x="8" y="5" width="8" height="14" rx="1"/></svg>Haptics on</button>
+    <button class="pill"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>Heartbeat</button>
+  </div>
+</div>
+        </main>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator-area">
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Figma export chrome (host page only; not serialized into the payload) -->
+    <div class="figma-export-toolbar" data-figma-export-ignore>
+        <span class="figma-export-toast" hidden></span>
+        <button type="button" class="figma-export-btn" onclick="window.__copyDesignToFigma()">
+            Copy to Figma
+        </button>
+    </div>
+
+    <script src=".design/figma-export.js"></script>
+</body>
+</html>

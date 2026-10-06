@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EverLove - Camera (solo)</title>
+    <link rel="stylesheet" href=".design/device-chrome.css">
+    <link rel="stylesheet" href=".design/device-ios.css">
+    <link rel="stylesheet" href=".design/everlove.css">
+    <style>
+        /* Per-mockup design tokens. design-system.html (if present in the
+           working directory) overrides these. Keep in sync with
+           components/ios/01-base-tokens.md. */
+        :root {
+            --color-bg: #FFFFFF;
+            --color-text: #000000;
+            --color-text-secondary: #6B7280;
+            --color-island: #000000;
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* iOS HIG type ramp */
+            --text-caption2:    11px;
+            --text-caption1:    12px;
+            --text-footnote:    13px;
+            --text-subheadline: 15px;
+            --text-callout:     16px;
+            --text-body:        17px;
+            --text-title3:      20px;
+            --text-title2:      22px;
+            --text-title1:      28px;
+            --text-largetitle:  34px;
+            --text-md:          var(--text-body);
+        }
+
+:root{
+  --color-bg:#FFFFFF; --color-text:#2A0F2E; --color-text-secondary:#85708A;
+  --plum:#4D1655; --plum-deep:#2F0D36; --plum-700:#6A2573;
+  --orchid:#D985D0; --orchid-deep:#B95AB0; --orchid-soft:#EEC3E9;
+  --blush:#F8E3F5; --blush-50:#FDF4FC; --line:#F0DEEC;
+  --ink:#2A0F2E; --muted:#85708A;
+  --ok:#2FB26B; --ok-bg:#E3F6EB; --gold:#F2B03B; --rose:#F0507F;
+  --shadow-card:0 6px 24px rgba(77,22,85,.08);
+  --shadow-btn:0 8px 20px rgba(77,22,85,.28);
+}
+.device{color:var(--ink)}
+.screen{min-height:932px;display:flex;flex-direction:column;position:relative}
+.wash{background:linear-gradient(180deg,#F5CFF0 0%,#FAE4F7 28%,#FFFFFF 62%)}
+.av{border-radius:50%;display:block;flex-shrink:0}
+button{font-family:inherit;color:inherit}
+
+.t-large{font-size:var(--text-largetitle);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--plum-deep)}
+.t-title{font-size:var(--text-title1);font-weight:700;line-height:1.14;letter-spacing:-.028em;color:var(--plum-deep)}
+.t-sub{font-size:var(--text-subheadline);line-height:1.35;color:var(--muted)}
+
+.btn{height:54px;width:100%;border:none;border-radius:27px;font-size:var(--text-body);font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.98)}
+.btn-plum{background:var(--plum);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-soft{background:rgba(255,255,255,.72);color:var(--plum);box-shadow:inset 0 0 0 1px rgba(77,22,85,.10)}
+.btn-orchid{background:var(--orchid);color:var(--plum-deep)}
+.btn-white{background:#fff;color:var(--plum)}
+.btn[disabled]{opacity:.4;box-shadow:none}
+.link{background:none;border:none;font-size:var(--text-subheadline);font-weight:600;color:var(--plum);cursor:pointer;min-height:44px}
+
+.ibtn{width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--plum);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(77,22,85,.10);cursor:pointer;position:relative;flex-shrink:0}
+.ibtn.ghost{background:none;box-shadow:none}
+.dot{position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 2px #fff}
+
+.card{background:#fff;border-radius:24px;box-shadow:var(--shadow-card)}
+.chip{height:32px;padding:0 12px;border-radius:16px;background:var(--blush);color:var(--plum);
+  font-size:var(--text-footnote);font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:none}
+.chip.on{background:var(--plum);color:#fff}
+.chip svg{flex-shrink:0}
+.seg{display:flex;gap:6px;flex:1}
+.seg i{flex:1;height:4px;border-radius:2px;background:rgba(77,22,85,.14)}
+.seg i.on{background:var(--plum)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;padding:0 20px 12px}
+.sec h2{font-size:var(--text-title3);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
+.sec a{font-size:var(--text-subheadline);font-weight:600;color:var(--orchid-deep)}
+.crown{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--plum-deep);color:var(--gold)}
+
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Camera tab root: full-bleed viewfinder, light status bar */
+.device{--color-bg:#1A0820}
+.status-bar{color:#fff}
+.home-indicator{background:#fff}
+.cam{position:relative;height:932px;overflow:hidden;background:#1A0820}
+.cam .vf{position:absolute;inset:0}
+.cam .vf svg{width:100%;height:100%;display:block}
+.cam::before,.cam::after{content:"";position:absolute;left:0;right:0;z-index:1;pointer-events:none}
+.cam::before{top:0;height:170px;background:linear-gradient(180deg,rgba(26,8,32,.62),rgba(26,8,32,0))}
+.cam::after{bottom:0;height:380px;background:linear-gradient(0deg,rgba(26,8,32,.72),rgba(26,8,32,0))}
+.cam .top{position:absolute;z-index:3;top:67px;left:16px;right:16px;display:flex;align-items:center;justify-content:space-between}
+.glass{background:rgba(32,12,38,.46);color:#fff;border:none;-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.cam .gbtn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.cam .hint{height:36px;padding:0 14px 0 10px;border-radius:18px;display:inline-flex;align-items:center;gap:8px;font-size:var(--text-footnote);font-weight:600;white-space:nowrap}
+.cam .hint .hh{width:22px;height:22px;border-radius:50%;background:linear-gradient(145deg,#F7A6E8,var(--orchid-deep));display:flex;align-items:center;justify-content:center}
+.focus{position:absolute;z-index:2;left:104px;top:500px;width:84px;height:84px;border:1.5px solid var(--gold);border-radius:6px;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+.focus i{position:absolute;left:50%;top:50%;width:8px;height:1.5px;background:var(--gold);transform:translate(-50%,-50%)}
+.cam .zoom{position:absolute;z-index:3;left:50%;bottom:290px;transform:translateX(-50%);height:44px;border-radius:22px;display:flex;padding:3px}
+.cam .zoom button{width:46px;height:38px;border:none;border-radius:19px;background:none;color:rgba(255,255,255,.86);font-size:var(--text-footnote);font-weight:700;cursor:pointer}
+.cam .zoom button.on{background:#fff;color:var(--plum)}
+.cam .shutter-row{position:absolute;z-index:3;left:28px;right:28px;bottom:152px;height:84px;display:flex;align-items:center;justify-content:space-between}
+.cam .lib{width:52px;height:52px;border-radius:14px;overflow:hidden;border:2px solid #fff;padding:0;background:none;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.cam .lib svg{width:100%;height:100%;display:block}
+.cam .shutter{width:84px;height:84px;border-radius:50%;border:4px solid #fff;padding:5px;background:none;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.35);transition:transform .12s}
+.cam .shutter:active{transform:scale(.94)}
+.cam .shutter i{display:block;width:100%;height:100%;border-radius:50%;background:#fff}
+.cam .tm{width:52px;height:52px}
+
+    </style>
+</head>
+<body>
+    <div class="device" data-platform="ios" data-form-factor="phone">
+        <!-- Dynamic Island (always on top) -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <svg width="20" height="13" viewBox="0 0 20 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.3466 1.625C19.3466 1.00368 18.8654 0.5 18.2718 0.5H17.1969C16.6033 0.5 16.1221 1.00368 16.1221 1.625V11.375C16.1221 11.9963 16.6033 12.5 17.1969 12.5H18.2718C18.8654 12.5 19.3466 11.9963 19.3466 11.375V1.625ZM11.8565 2.9H12.9313C13.5249 2.9 14.0061 3.41577 14.0061 4.052V11.348C14.0061 11.9842 13.5249 12.5 12.9313 12.5H11.8565C11.2629 12.5 10.7817 11.9842 10.7817 11.348V4.052C10.7817 3.41577 11.2629 2.9 11.8565 2.9ZM7.49008 5.5H6.41527C5.82167 5.5 5.34046 6.02233 5.34046 6.66667V11.3333C5.34046 11.9777 5.82167 12.5 6.41527 12.5H7.49008C8.08368 12.5 8.56489 11.9777 8.56489 11.3333V6.66667C8.56489 6.02233 8.08368 5.5 7.49008 5.5ZM2.14962 7.9H1.07481C0.481208 7.9 0 8.41487 0 9.05V11.35C0 11.9851 0.481208 12.5 1.07481 12.5H2.14962C2.74322 12.5 3.22443 11.9851 3.22443 11.35V9.05C3.22443 8.41487 2.74322 7.9 2.14962 7.9Z"/></svg>
+                <svg width="18" height="13" viewBox="26.9 0 17.3 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.5408 3.02062C38.0469 3.02072 40.4571 3.92573 42.2734 5.54859C42.4102 5.67388 42.6288 5.6723 42.7635 5.54504L44.0709 4.30497C44.1391 4.24043 44.1771 4.153 44.1766 4.06204C44.176 3.97107 44.1369 3.88407 44.0679 3.82028C39.3008 -0.47342 31.7801 -0.47342 27.0129 3.82028C26.9439 3.88402 26.9047 3.971 26.9041 4.06197C26.9034 4.15293 26.9414 4.24038 27.0095 4.30497L28.3173 5.54504C28.4519 5.67249 28.6707 5.67407 28.8074 5.54859C30.6239 3.92562 33.0344 3.02061 35.5408 3.02062ZM35.539 7.16274C36.9067 7.16265 38.2255 7.66492 39.2393 8.57193C39.3765 8.70066 39.5925 8.69787 39.7261 8.56564L41.0232 7.27077C41.0915 7.20285 41.1294 7.11071 41.1285 7.01496C41.1275 6.91922 41.0877 6.82786 41.018 6.76132C37.9308 3.92401 33.1498 3.92401 30.0626 6.76132C29.9929 6.82786 29.9531 6.91926 29.9522 7.01504C29.9512 7.11081 29.9893 7.20294 30.0577 7.27077L31.3545 8.56564C31.4881 8.69787 31.7041 8.70066 31.8413 8.57193C32.8544 7.66552 34.1722 7.1633 35.539 7.16274ZM38.0803 9.90455C38.0823 10.008 38.0449 10.1076 37.9771 10.1801L35.7838 12.5894C35.7195 12.6602 35.6319 12.7 35.5404 12.7C35.4489 12.7 35.3613 12.6602 35.297 12.5894L33.1033 10.1801C33.0356 10.1076 32.9983 10.0079 33.0003 9.90447C33.0023 9.80107 33.0434 9.70315 33.114 9.63384C34.5147 8.34428 36.5661 8.34428 37.9669 9.63384C38.0373 9.70321 38.0784 9.80115 38.0803 9.90455Z"/></svg>
+                <svg width="27" height="13" viewBox="52.5 0 27 13" fill="none"><rect opacity="0.35" x="52.5474" y="0.5" width="24" height="12" rx="3.8" stroke="currentColor"/><path opacity="0.4" d="M77.9473 4.66666V8.66666C78.752 8.32788 79.2753 7.53979 79.2753 6.66666C79.2753 5.79352 78.752 5.00543 77.9473 4.66666Z" fill="currentColor"/><rect x="53.8474" y="2" width="21" height="9" rx="2.5" fill="currentColor"/></svg>
+            </div>
+        </div>
+
+
+        <!-- Insert screen content here -->
+        <main class="device-content">
+
+<div class="cam">
+  <div class="vf"><svg viewBox="0 0 430 932" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="awall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A2236"/><stop offset="1" stop-color="#22101F"/></linearGradient>
+    <linearGradient id="asky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A5BB8"/><stop offset=".45" stop-color="#EE8FBA"/><stop offset=".85" stop-color="#FFC48A"/><stop offset="1" stop-color="#FFD9A0"/></linearGradient>
+    <radialGradient id="asun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF1C4"/><stop offset=".35" stop-color="#FFD58F" stop-opacity=".9"/><stop offset="1" stop-color="#FFB27A" stop-opacity="0"/></radialGradient>
+    <linearGradient id="awood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A4B3A"/><stop offset=".3" stop-color="#5E2F2E"/><stop offset="1" stop-color="#241020"/></linearGradient>
+    <linearGradient id="acup" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F6E7E1"/><stop offset=".6" stop-color="#FFF8F4"/><stop offset="1" stop-color="#D9BFC0"/></linearGradient>
+    <radialGradient id="avig" cx=".5" cy=".46" r=".75"><stop offset=".55" stop-color="#1A0820" stop-opacity="0"/><stop offset="1" stop-color="#1A0820" stop-opacity=".62"/></radialGradient>
+    <filter id="ablur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="asoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <clipPath id="awin"><rect x="34" y="118" width="362" height="322" rx="16"/></clipPath>
+  </defs>
+  <rect width="430" height="932" fill="url(#awall)"/>
+  <g filter="url(#ablur)" opacity=".85"><circle cx="48" cy="52" r="9" fill="#FFD58F"/><circle cx="96" cy="76" r="7" fill="#FFB27A"/><circle cx="150" cy="44" r="10" fill="#FFE3A8"/><circle cx="214" cy="70" r="7" fill="#F7A6E8"/><circle cx="278" cy="46" r="9" fill="#FFD58F"/><circle cx="336" cy="74" r="8" fill="#FFB27A"/><circle cx="388" cy="48" r="10" fill="#FFE3A8"/></g>
+  <g clip-path="url(#awin)">
+    <rect x="34" y="118" width="362" height="322" fill="url(#asky)"/>
+    <circle cx="262" cy="350" r="120" fill="url(#asun)"/>
+    <circle cx="262" cy="352" r="34" fill="#FFF0C2"/>
+    <g fill="#8D4A93" opacity=".85"><rect x="40" y="318" width="34" height="90"/><rect x="82" y="296" width="26" height="112"/><rect x="116" y="332" width="40" height="76"/><rect x="300" y="310" width="30" height="98"/><rect x="338" y="288" width="44" height="120"/></g>
+    <g fill="#4D1F57"><rect x="34" y="350" width="46" height="90"/><rect x="88" y="326" width="32" height="114"/><rect x="128" y="362" width="52" height="78"/><rect x="188" y="346" width="28" height="94"/><rect x="226" y="372" width="44" height="68"/><rect x="278" y="336" width="36" height="104"/><rect x="322" y="356" width="30" height="84"/><rect x="358" y="326" width="40" height="114"/></g>
+    <g fill="#FFD98A"><rect x="42" y="362" width="5" height="7"/><rect x="56" y="378" width="5" height="7"/><rect x="96" y="340" width="5" height="7"/><rect x="108" y="362" width="5" height="7"/><rect x="96" y="388" width="5" height="7"/><rect x="138" y="378" width="5" height="7"/><rect x="156" y="394" width="5" height="7"/><rect x="194" y="362" width="5" height="7"/><rect x="236" y="388" width="5" height="7"/><rect x="288" y="352" width="5" height="7"/><rect x="298" y="376" width="5" height="7"/><rect x="330" y="372" width="5" height="7"/><rect x="366" y="344" width="5" height="7"/><rect x="380" y="372" width="5" height="7"/><rect x="368" y="398" width="5" height="7"/></g>
+    <rect x="34" y="118" width="362" height="322" fill="none" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="2"/>
+  </g>
+  <g fill="#2A1220"><rect x="209" y="118" width="12" height="322"/><rect x="34" y="262" width="362" height="9"/></g>
+  <rect x="27" y="111" width="376" height="336" rx="20" fill="none" stroke="#2A1220" stroke-width="14"/>
+  <rect x="34" y="118" width="362" height="322" rx="16" fill="none" stroke="#FFC48A" stroke-opacity=".28" stroke-width="2"/>
+  <rect x="0" y="440" width="430" height="492" fill="url(#awood)"/>
+  <rect x="0" y="440" width="430" height="6" fill="#B66A4C" opacity=".7"/>
+  <g stroke="#1A0A18" stroke-opacity=".35" stroke-width="2"><path d="M0 520H430M0 610H430M0 720H430"/><path d="M96 446V520M310 446V520M180 520V610M380 520V610M40 610V720M250 610V720"/></g>
+  <ellipse cx="215" cy="470" rx="190" ry="20" fill="#FFC48A" opacity=".20" filter="url(#ablur)"/>
+  <g>
+    <ellipse cx="150" cy="590" rx="82" ry="17" fill="#120610" opacity=".45" filter="url(#asoft)"/>
+    <ellipse cx="146" cy="582" rx="74" ry="15" fill="#F7E8E2"/>
+    <ellipse cx="146" cy="579" rx="56" ry="10" fill="#E9D2D0"/>
+    <path d="M96 520h100c0 40-14 66-50 66s-50-26-50-66z" fill="url(#acup)"/>
+    <path d="M196 534c22-2 28 14 18 28-6 8-16 10-26 10" fill="none" stroke="#F1DDD8" stroke-width="9" stroke-linecap="round"/>
+    <ellipse cx="146" cy="520" rx="50" ry="11" fill="#E9D2D0"/>
+    <ellipse cx="146" cy="521" rx="44" ry="8.500" fill="#6B3427"/>
+    <path transform="translate(146 521) scale(.95 .42)" d="M0 8C-10 0-12-4-12-7-12-10-9.500-12-6.500-12-3.500-12-1-10 0-7 1-10 3.500-12 6.500-12 9.500-12 12-10 12-7 12-4 10 0 0 8z" fill="#F7E4D8"/>
+  </g>
+  <g>
+    <ellipse cx="292" cy="650" rx="94" ry="19" fill="#120610" opacity=".45" filter="url(#asoft)"/>
+    <ellipse cx="288" cy="642" rx="86" ry="17" fill="#F7E8E2"/>
+    <ellipse cx="288" cy="639" rx="66" ry="12" fill="#E9D2D0"/>
+    <path d="M230 574h116c0 48-16 76-58 76s-58-28-58-76z" fill="url(#acup)"/>
+    <path d="M346 590c24-2 32 16 20 32-7 9-18 11-30 11" fill="none" stroke="#F1DDD8" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="288" cy="574" rx="58" ry="12" fill="#E9D2D0"/>
+    <ellipse cx="288" cy="575" rx="51" ry="9.500" fill="#6B3427"/>
+    <path transform="translate(288 575) scale(1.1 .46)" d="M0 8C-10 0-12-4-12-7-12-10-9.500-12-6.500-12-3.500-12-1-10 0-7 1-10 3.500-12 6.500-12 9.500-12 12-10 12-7 12-4 10 0 0 8z" fill="#F7E4D8"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="3.500" stroke-linecap="round" filter="url(#asoft)"><path d="M132 506c-8-14 8-22 0-36"/><path d="M158 506c-8-14 8-22 0-36"/><path d="M274 558c-9-15 9-24 0-40"/><path d="M302 558c-9-15 9-24 0-40"/></g>
+  <rect width="430" height="932" fill="url(#avig)"/>
+</svg></div>
+  <div class="focus" aria-hidden="true"><i></i></div>
+  <div class="top">
+    <button class="gbtn glass" aria-label="Flash off"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4.500 13.500H12L11 22l8.500-11.500H12z"/><path d="M3 3l18 18"/></svg></button>
+    <div class="hint glass"><span class="hh"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 21.200 10.600 20C5.400 15.300 2 12.200 2 8.500 2 5.400 4.400 3 7.500 3c1.700 0 3.400.8 4.500 2.100C13.100 3.800 14.800 3 16.500 3 19.600 3 22 5.400 22 8.500c0 3.700-3.400 6.800-8.600 11.500z"/></svg></span>Photos you take are saved for your partner</div>
+    <button class="gbtn glass" aria-label="Flip camera"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.500-6.200L21 8.500"/><path d="M21 3.500v5h-5"/><path d="M21 12a9 9 0 0 1-15.500 6.200L3 15.500"/><path d="M3 20.500v-5h5"/></svg></button>
+  </div>
+  <div class="zoom glass" role="group" aria-label="Zoom"><button class="on" aria-pressed="true">1x</button><button aria-pressed="false">2x</button></div>
+  <div class="shutter-row">
+    <button class="lib" aria-label="Photo library"><svg viewBox="0 0 52 52" aria-hidden="true"><defs><linearGradient id="lt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F28DB5"/><stop offset="1" stop-color="#FFC48A"/></linearGradient></defs><rect width="52" height="52" fill="url(#lt)"/><path d="M0 34h52v18H0z" fill="#5E2F2E"/><path d="M0 30h10v6H0zM14 22h9v14h-9zM27 27h8v9h-8zM39 18h13v18H39z" fill="#4D1F57"/><circle cx="26" cy="31" r="9" fill="#FFE3A8" opacity=".6"/></svg></button>
+    <button class="shutter" aria-label="Take photo"><i></i></button>
+    <button class="gbtn tm glass" aria-label="Timer off"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13.500" r="8"/><path d="M12 9.500v4l2.500 1.500M9.500 2.500h5"/></svg></button>
+  </div>
+</div>
+        </main>
+        <nav class="el-tabbar" aria-label="Primary">
+            <button class="el-tab" aria-label="Home"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><defs><mask id="elHomeCut"><rect width="24" height="24" fill="#fff"/><path d="M6.600 15.400c.9 1.300 2.700 1.300 3.600 0" fill="none" stroke="#000" stroke-width="1.500" stroke-linecap="round"/><path d="M12 8.400h7M17.200 6.600l1.800 1.800-1.800 1.800M19 12.600h-7M13.800 10.800 12 12.600l1.800 1.800" fill="none" stroke="#000" stroke-width="1.400" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><path mask="url(#elHomeCut)" d="M2.800 10.500C2.800 6.400 5.800 3.200 10 3.200h4c4.200 0 7.200 3.200 7.200 7.300v5.800c0 2.600-2 4.500-4.500 4.500H4.300c-.8 0-1.500-.7-1.500-1.500z"/></svg></button>
+            <button class="el-tab" aria-label="Pet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="5" cy="11" rx="1.9" ry="2.5" transform="rotate(-22 5 11)"/><ellipse cx="9.2" cy="6.4" rx="2" ry="2.7" transform="rotate(-8 9.2 6.4)"/><ellipse cx="14.800" cy="6.400" rx="2" ry="2.700" transform="rotate(8 14.8 6.4)"/><ellipse cx="19" cy="11" rx="1.9" ry="2.5" transform="rotate(22 19 11)"/><path d="M12 11.200c-2.800 0-5.400 2.900-5.400 5.400 0 1.700 1.300 2.700 2.800 2.700 1.100 0 1.600-.5 2.600-.5s1.500.5 2.600.5c1.500 0 2.800-1 2.800-2.700 0-2.500-2.600-5.400-5.400-5.400z"/></svg></button>
+            <button class="el-tab active" aria-label="Camera" aria-current="page"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9 3.500h6l1.300 2H19c1.200 0 2.200 1 2.200 2.200v10.100c0 1.200-1 2.200-2.200 2.200H5c-1.200 0-2.200-1-2.200-2.200V7.700c0-1.200 1-2.200 2.200-2.200h2.700zM12 8.400a4.200 4.200 0 1 0 0 8.400 4.200 4.200 0 0 0 0-8.400z"/><circle cx="12" cy="12.600" r="2.200"/></svg></button>
+            <button class="el-tab" aria-label="Chat"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 3C6.900 3 2.800 6.600 2.800 11.100c0 2.200 1 4.200 2.600 5.700-.1 1.400-.6 2.600-1.600 3.500-.3.300 0 .8.400.7 1.900-.3 3.400-1.100 4.400-1.900.9.200 1.800.4 2.800.4 5.100 0 9.200-3.600 9.200-8.400S17.100 3 12 3zM9.400 8.900c-.7 0-1.200.7-1.200 1.600s.5 1.600 1.200 1.600 1.200-.7 1.200-1.600-.5-1.600-1.200-1.600zm5.200 0c-.7 0-1.200.7-1.200 1.600s.5 1.600 1.200 1.600 1.200-.7 1.200-1.600-.5-1.600-1.200-1.600z"/></svg></button>
+            <button class="el-tab" aria-label="Us"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="7.600" cy="7.200" r="3.200"/><path d="M2.400 19.800v-2.900c0-2.100 1.600-3.800 3.700-3.800h3c2.100 0 3.700 1.700 3.700 3.800v2.900z"/><circle cx="16" cy="9.600" r="3.400"/><path d="M10 21v-3.100c0-2.200 1.800-4 4-4h4c2.200 0 4 1.800 4 4V21z"/></svg></button>
+        </nav>
+        <!-- Home Indicator -->
+        <div class="home-indicator-area">
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Figma export chrome (host page only; not serialized into the payload) -->
+    <div class="figma-export-toolbar" data-figma-export-ignore>
+        <span class="figma-export-toast" hidden></span>
+        <button type="button" class="figma-export-btn" onclick="window.__copyDesignToFigma()">
+            Copy to Figma
+        </button>
+    </div>
+
+    <script src=".design/figma-export.js"></script>
+</body>
+</html>

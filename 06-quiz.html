@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EverLove - Quiz</title>
+    <link rel="stylesheet" href=".design/device-chrome.css">
+    <link rel="stylesheet" href=".design/device-ios.css">
+    <style>
+        /* Per-mockup design tokens. design-system.html (if present in the
+           working directory) overrides these. Keep in sync with
+           components/ios/01-base-tokens.md. */
+        :root {
+            --color-bg: #FFFFFF;
+            --color-text: #000000;
+            --color-text-secondary: #6B7280;
+            --color-island: #000000;
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* iOS HIG type ramp */
+            --text-caption2:    11px;
+            --text-caption1:    12px;
+            --text-footnote:    13px;
+            --text-subheadline: 15px;
+            --text-callout:     16px;
+            --text-body:        17px;
+            --text-title3:      20px;
+            --text-title2:      22px;
+            --text-title1:      28px;
+            --text-largetitle:  34px;
+            --text-md:          var(--text-body);
+        }
+
+:root{
+  --color-bg:#FFFFFF; --color-text:#2A0F2E; --color-text-secondary:#85708A;
+  --plum:#4D1655; --plum-deep:#2F0D36; --plum-700:#6A2573;
+  --orchid:#D985D0; --orchid-deep:#B95AB0; --orchid-soft:#EEC3E9;
+  --blush:#F8E3F5; --blush-50:#FDF4FC; --line:#F0DEEC;
+  --ink:#2A0F2E; --muted:#85708A;
+  --ok:#2FB26B; --ok-bg:#E3F6EB; --gold:#F2B03B; --rose:#F0507F;
+  --shadow-card:0 6px 24px rgba(77,22,85,.08);
+  --shadow-btn:0 8px 20px rgba(77,22,85,.28);
+}
+.device{color:var(--ink)}
+.screen{min-height:932px;display:flex;flex-direction:column;position:relative}
+.wash{background:linear-gradient(180deg,#F5CFF0 0%,#FAE4F7 28%,#FFFFFF 62%)}
+.av{border-radius:50%;display:block;flex-shrink:0}
+button{font-family:inherit;color:inherit}
+
+.t-large{font-size:var(--text-largetitle);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--plum-deep)}
+.t-title{font-size:var(--text-title1);font-weight:700;line-height:1.14;letter-spacing:-.028em;color:var(--plum-deep)}
+.t-sub{font-size:var(--text-subheadline);line-height:1.35;color:var(--muted)}
+
+.btn{height:54px;width:100%;border:none;border-radius:27px;font-size:var(--text-body);font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.98)}
+.btn-plum{background:var(--plum);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-soft{background:rgba(255,255,255,.72);color:var(--plum);box-shadow:inset 0 0 0 1px rgba(77,22,85,.10)}
+.btn-orchid{background:var(--orchid);color:var(--plum-deep)}
+.btn-white{background:#fff;color:var(--plum)}
+.btn[disabled]{opacity:.4;box-shadow:none}
+.link{background:none;border:none;font-size:var(--text-subheadline);font-weight:600;color:var(--plum);cursor:pointer;min-height:44px}
+
+.ibtn{width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--plum);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(77,22,85,.10);cursor:pointer;position:relative;flex-shrink:0}
+.ibtn.ghost{background:none;box-shadow:none}
+.dot{position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 2px #fff}
+
+.card{background:#fff;border-radius:24px;box-shadow:var(--shadow-card)}
+.chip{height:32px;padding:0 12px;border-radius:16px;background:var(--blush);color:var(--plum);
+  font-size:var(--text-footnote);font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:none}
+.chip.on{background:var(--plum);color:#fff}
+.chip svg{flex-shrink:0}
+.seg{display:flex;gap:6px;flex:1}
+.seg i{flex:1;height:4px;border-radius:2px;background:rgba(77,22,85,.14)}
+.seg i.on{background:var(--plum)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;padding:0 20px 12px}
+.sec h2{font-size:var(--text-title3);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
+.sec a{font-size:var(--text-subheadline);font-weight:600;color:var(--orchid-deep)}
+.crown{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--plum-deep);color:var(--gold)}
+
+/* floating tab bar — recolored to the plum / orchid palette */
+.float-tab-bar--icon-circle{box-shadow:0 10px 30px rgba(77,22,85,.16),0 2px 6px rgba(77,22,85,.06)}
+.float-tab-bar--icon-circle .float-tab-item{color:#A98BAE}
+.float-tab-bar--icon-circle .float-tab-item.active{background:var(--orchid);color:#fff}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.topbar{padding:calc(59px + 8px) 20px 8px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:10;
+  background:linear-gradient(180deg,#F5CFF0,rgba(245,207,240,.94))}
+.count{height:32px;min-width:48px;padding:0 12px;border-radius:16px;background:var(--plum);color:#fff;font-size:var(--text-footnote);font-weight:700;display:flex;align-items:center;justify-content:center}
+.q{padding:28px 24px 0}
+.q small{font-size:var(--text-footnote);font-weight:700;color:var(--orchid-deep);letter-spacing:.04em;text-transform:uppercase}
+.q h1{margin-top:8px;font-size:28px;line-height:1.14;letter-spacing:-.03em;color:var(--plum-deep)}
+.duo{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--text-footnote);color:var(--muted)}
+.duo .av{margin-right:-14px;box-shadow:0 0 0 2px #fff}
+.duo span{margin-left:14px}
+.opts{padding:26px 20px 0;display:flex;flex-direction:column;gap:12px}
+.opt{display:flex;align-items:center;gap:14px;min-height:68px;padding:12px 16px;border-radius:22px;border:2px solid transparent;background:#fff;
+  box-shadow:var(--shadow-card);text-align:left;cursor:pointer;font-size:var(--text-body);font-weight:500;color:var(--plum-deep);line-height:1.25}
+.opt .ltr{width:34px;height:34px;border-radius:12px;background:var(--blush);color:var(--plum);font-weight:700;font-size:var(--text-subheadline);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt .tx{flex:1}
+.opt .ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.opt.sel{border-color:var(--orchid-deep);background:#FFF8FE;box-shadow:0 8px 24px rgba(185,90,176,.22)}
+.opt.sel .ltr{background:var(--orchid-deep);color:#fff}
+.opt.sel .ck{background:var(--orchid-deep);border-color:var(--orchid-deep)}
+.foot{margin-top:auto;padding:24px 20px 44px;display:flex;gap:12px}
+.foot .btn-soft{width:64px;flex:none}
+
+    </style>
+</head>
+<body>
+    <div class="device" data-platform="ios" data-form-factor="phone">
+        <!-- Dynamic Island (always on top) -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <svg width="20" height="13" viewBox="0 0 20 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.3466 1.625C19.3466 1.00368 18.8654 0.5 18.2718 0.5H17.1969C16.6033 0.5 16.1221 1.00368 16.1221 1.625V11.375C16.1221 11.9963 16.6033 12.5 17.1969 12.5H18.2718C18.8654 12.5 19.3466 11.9963 19.3466 11.375V1.625ZM11.8565 2.9H12.9313C13.5249 2.9 14.0061 3.41577 14.0061 4.052V11.348C14.0061 11.9842 13.5249 12.5 12.9313 12.5H11.8565C11.2629 12.5 10.7817 11.9842 10.7817 11.348V4.052C10.7817 3.41577 11.2629 2.9 11.8565 2.9ZM7.49008 5.5H6.41527C5.82167 5.5 5.34046 6.02233 5.34046 6.66667V11.3333C5.34046 11.9777 5.82167 12.5 6.41527 12.5H7.49008C8.08368 12.5 8.56489 11.9777 8.56489 11.3333V6.66667C8.56489 6.02233 8.08368 5.5 7.49008 5.5ZM2.14962 7.9H1.07481C0.481208 7.9 0 8.41487 0 9.05V11.35C0 11.9851 0.481208 12.5 1.07481 12.5H2.14962C2.74322 12.5 3.22443 11.9851 3.22443 11.35V9.05C3.22443 8.41487 2.74322 7.9 2.14962 7.9Z"/></svg>
+                <svg width="18" height="13" viewBox="26.9 0 17.3 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.5408 3.02062C38.0469 3.02072 40.4571 3.92573 42.2734 5.54859C42.4102 5.67388 42.6288 5.6723 42.7635 5.54504L44.0709 4.30497C44.1391 4.24043 44.1771 4.153 44.1766 4.06204C44.176 3.97107 44.1369 3.88407 44.0679 3.82028C39.3008 -0.47342 31.7801 -0.47342 27.0129 3.82028C26.9439 3.88402 26.9047 3.971 26.9041 4.06197C26.9034 4.15293 26.9414 4.24038 27.0095 4.30497L28.3173 5.54504C28.4519 5.67249 28.6707 5.67407 28.8074 5.54859C30.6239 3.92562 33.0344 3.02061 35.5408 3.02062ZM35.539 7.16274C36.9067 7.16265 38.2255 7.66492 39.2393 8.57193C39.3765 8.70066 39.5925 8.69787 39.7261 8.56564L41.0232 7.27077C41.0915 7.20285 41.1294 7.11071 41.1285 7.01496C41.1275 6.91922 41.0877 6.82786 41.018 6.76132C37.9308 3.92401 33.1498 3.92401 30.0626 6.76132C29.9929 6.82786 29.9531 6.91926 29.9522 7.01504C29.9512 7.11081 29.9893 7.20294 30.0577 7.27077L31.3545 8.56564C31.4881 8.69787 31.7041 8.70066 31.8413 8.57193C32.8544 7.66552 34.1722 7.1633 35.539 7.16274ZM38.0803 9.90455C38.0823 10.008 38.0449 10.1076 37.9771 10.1801L35.7838 12.5894C35.7195 12.6602 35.6319 12.7 35.5404 12.7C35.4489 12.7 35.3613 12.6602 35.297 12.5894L33.1033 10.1801C33.0356 10.1076 32.9983 10.0079 33.0003 9.90447C33.0023 9.80107 33.0434 9.70315 33.114 9.63384C34.5147 8.34428 36.5661 8.34428 37.9669 9.63384C38.0373 9.70321 38.0784 9.80115 38.0803 9.90455Z"/></svg>
+                <svg width="27" height="13" viewBox="52.5 0 27 13" fill="none"><rect opacity="0.35" x="52.5474" y="0.5" width="24" height="12" rx="3.8" stroke="currentColor"/><path opacity="0.4" d="M77.9473 4.66666V8.66666C78.752 8.32788 79.2753 7.53979 79.2753 6.66666C79.2753 5.79352 78.752 5.00543 77.9473 4.66666Z" fill="currentColor"/><rect x="53.8474" y="2" width="21" height="9" rx="2.5" fill="currentColor"/></svg>
+            </div>
+        </div>
+
+        <!-- Insert screen content here -->
+        <main class="device-content">
+
+<div class="screen wash">
+  <div class="topbar">
+    <button class="ibtn ghost" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="seg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+    <span class="count">2/5</span>
+  </div>
+  <div class="q">
+    <small>Daily life</small>
+    <h1>How do you usually share your day with each other?</h1>
+    <div class="duo"><svg class="av" style="width:28px;height:28px;" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ag4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6B7E4"/><stop offset="1" stop-color="#D985D0"/></linearGradient><clipPath id="ag4c"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#ag4c)"><rect width="100" height="100" fill="url(#ag4)"/><path d="M29 46C25 18 75 18 71 46L74 80H26Z" fill="#2B1620"/><path d="M10 104C12 78 32 70 50 70S88 78 90 104Z" fill="#4D1655"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#F3C4A0"/><ellipse cx="50" cy="45" rx="18" ry="20" fill="#F3C4A0"/><path d="M31 42C32 24 68 24 69 42C60 33 44 34 31 42Z" fill="#2B1620"/><circle cx="43.500" cy="47" r="1.800" fill="#2A0F2E"/><circle cx="56.500" cy="47" r="1.800" fill="#2A0F2E"/><path d="M44.500 54.500C47 57.500 53 57.500 55.500 54.500" fill="none" stroke="#2A0F2E" stroke-width="1.800" stroke-linecap="round"/><ellipse cx="38.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/><ellipse cx="61.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/></g></svg><svg class="av" style="width:28px;height:28px;" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ag5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD6B8"/><stop offset="1" stop-color="#F7A98B"/></linearGradient><clipPath id="ag5c"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#ag5c)"><rect width="100" height="100" fill="url(#ag5)"/><path d="M10 104C12 78 32 70 50 70S88 78 90 104Z" fill="#FFFFFF"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#E4AE86"/><ellipse cx="50" cy="45" rx="18" ry="20" fill="#E4AE86"/><path d="M31 43C27 20 73 20 69 43C66 33 58 30 50 30C42 30 34 33 31 43Z" fill="#1E1418"/><circle cx="43.500" cy="47" r="1.800" fill="#2A0F2E"/><circle cx="56.500" cy="47" r="1.800" fill="#2A0F2E"/><path d="M44.500 54.500C47 57.500 53 57.500 55.500 54.500" fill="none" stroke="#2A0F2E" stroke-width="1.800" stroke-linecap="round"/><ellipse cx="38.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/><ellipse cx="61.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/></g></svg><span>Answer honestly. Minh can't see your picks yet.</span></div>
+  </div>
+  <div class="opts"><button class="opt"><span class="ltr">A</span><span class="tx">Sharing many little moments every day</span><span class="ck"></span></button><button class="opt sel"><span class="ltr">B</span><span class="tx">Often share updates about our lives</span><span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button><button class="opt"><span class="ltr">C</span><span class="tx">Only chat about recent news when free</span><span class="ck"></span></button><button class="opt"><span class="ltr">D</span><span class="tx">Rarely sharing our lives with each other</span><span class="ck"></span></button></div>
+  <div class="foot">
+    <button class="btn btn-soft" aria-label="Previous"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+    <button class="btn btn-plum">Next</button>
+  </div>
+</div>
+        </main>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator-area">
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Figma export chrome (host page only; not serialized into the payload) -->
+    <div class="figma-export-toolbar" data-figma-export-ignore>
+        <span class="figma-export-toast" hidden></span>
+        <button type="button" class="figma-export-btn" onclick="window.__copyDesignToFigma()">
+            Copy to Figma
+        </button>
+    </div>
+
+    <script src=".design/figma-export.js"></script>
+</body>
+</html>

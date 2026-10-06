@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EverLove - Drawing together</title>
+    <link rel="stylesheet" href=".design/device-chrome.css">
+    <link rel="stylesheet" href=".design/device-ios.css">
+    <style>
+        /* Per-mockup design tokens. design-system.html (if present in the
+           working directory) overrides these. Keep in sync with
+           components/ios/01-base-tokens.md. */
+        :root {
+            --color-bg: #FFFFFF;
+            --color-text: #000000;
+            --color-text-secondary: #6B7280;
+            --color-island: #000000;
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* iOS HIG type ramp */
+            --text-caption2:    11px;
+            --text-caption1:    12px;
+            --text-footnote:    13px;
+            --text-subheadline: 15px;
+            --text-callout:     16px;
+            --text-body:        17px;
+            --text-title3:      20px;
+            --text-title2:      22px;
+            --text-title1:      28px;
+            --text-largetitle:  34px;
+            --text-md:          var(--text-body);
+        }
+:root{
+  --color-bg:#FFFFFF; --color-text:#2A0F2E; --color-text-secondary:#85708A;
+  --plum:#4D1655; --plum-deep:#2F0D36; --plum-700:#6A2573;
+  --orchid:#D985D0; --orchid-deep:#B95AB0; --orchid-soft:#EEC3E9;
+  --blush:#F8E3F5; --blush-50:#FDF4FC; --line:#F0DEEC;
+  --ink:#2A0F2E; --muted:#85708A;
+  --ok:#2FB26B; --ok-bg:#E3F6EB; --gold:#F2B03B; --rose:#F0507F;
+  --shadow-card:0 6px 24px rgba(77,22,85,.08);
+  --shadow-btn:0 8px 20px rgba(77,22,85,.28);
+}
+.device{color:var(--ink)}
+.screen{min-height:932px;display:flex;flex-direction:column;position:relative}
+.wash{background:linear-gradient(180deg,#F5CFF0 0%,#FAE4F7 28%,#FFFFFF 62%)}
+.av{border-radius:50%;display:block;flex-shrink:0}
+button{font-family:inherit;color:inherit}
+
+.t-large{font-size:var(--text-largetitle);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--plum-deep)}
+.t-title{font-size:var(--text-title1);font-weight:700;line-height:1.14;letter-spacing:-.028em;color:var(--plum-deep)}
+.t-sub{font-size:var(--text-subheadline);line-height:1.35;color:var(--muted)}
+
+.btn{height:54px;width:100%;border:none;border-radius:27px;font-size:var(--text-body);font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.98)}
+.btn-plum{background:var(--plum);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-soft{background:rgba(255,255,255,.72);color:var(--plum);box-shadow:inset 0 0 0 1px rgba(77,22,85,.10)}
+.btn-orchid{background:var(--orchid);color:var(--plum-deep)}
+.btn-white{background:#fff;color:var(--plum)}
+.btn[disabled]{opacity:.4;box-shadow:none}
+.link{background:none;border:none;font-size:var(--text-subheadline);font-weight:600;color:var(--plum);cursor:pointer;min-height:44px}
+
+.ibtn{width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--plum);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(77,22,85,.10);cursor:pointer;position:relative;flex-shrink:0}
+.ibtn.ghost{background:none;box-shadow:none}
+.dot{position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 2px #fff}
+
+.card{background:#fff;border-radius:24px;box-shadow:var(--shadow-card)}
+.chip{height:32px;padding:0 12px;border-radius:16px;background:var(--blush);color:var(--plum);
+  font-size:var(--text-footnote);font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:none}
+.chip.on{background:var(--plum);color:#fff}
+.chip svg{flex-shrink:0}
+.seg{display:flex;gap:6px;flex:1}
+.seg i{flex:1;height:4px;border-radius:2px;background:rgba(77,22,85,.14)}
+.seg i.on{background:var(--plum)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;padding:0 20px 12px}
+.sec h2{font-size:var(--text-title3);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
+.sec a{font-size:var(--text-subheadline);font-weight:600;color:var(--orchid-deep)}
+.crown{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--plum-deep);color:var(--gold)}
+
+
+.coin{width:var(--s,20px);height:var(--s,20px);border-radius:50%;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;color:#fff;
+  background:radial-gradient(circle at 35% 30%,#FFE0A0,var(--gold) 58%,#D98E1A);box-shadow:inset 0 0 0 2px rgba(255,255,255,.38)}
+.nav{position:sticky;top:0;z-index:10;padding:calc(59px + 8px) 20px 8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav .mid{flex:1;text-align:center;font-size:var(--text-body);font-weight:700;color:var(--plum-deep);letter-spacing:-.01em}
+.wallet{height:40px;padding:0 14px 0 8px;border-radius:20px;background:#fff;box-shadow:0 2px 10px rgba(77,22,85,.10);display:flex;align-items:center;gap:8px;
+  font-size:var(--text-body);font-weight:700;color:var(--plum-deep);border:none}
+.ovl{display:flex}.ovl .av{box-shadow:0 0 0 3px #fff}.ovl .av+.av{margin-left:-12px}
+.pd{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:var(--text-caption2);font-weight:700;letter-spacing:.02em}
+.tag.free{background:var(--ok-bg);color:#1B8A4F}
+.tag.soon{background:var(--blush);color:var(--orchid-deep)}
+
+body{background:#FBF4FA}
+.sub{display:flex;align-items:center;gap:10px;padding:4px 20px 0}
+.live{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:18px;background:#fff;box-shadow:0 2px 10px rgba(77,22,85,.10);font-size:var(--text-footnote);font-weight:600;color:var(--plum-deep)}
+.live .pd{box-shadow:0 0 0 3px rgba(47,178,107,.2)}
+.prompt{margin:12px 20px 0;display:flex;align-items:center;gap:10px;font-size:var(--text-subheadline);color:var(--muted)}
+.prompt b{color:var(--plum-deep)}
+.paper{margin:12px 16px 0;height:520px;border-radius:28px;background:#FFFEFB;box-shadow:var(--shadow-card);position:relative;overflow:hidden;
+  background-image:radial-gradient(rgba(77,22,85,.10) 1.2px,transparent 1.3px);background-size:22px 22px}
+.paper svg.art{position:absolute;inset:0}
+.cur{position:absolute;display:flex;align-items:flex-start;gap:4px;color:var(--plum)}
+.cur .lb{margin-top:16px;margin-left:-4px;height:24px;padding:0 10px;border-radius:12px;background:var(--plum);color:#fff;font-size:var(--text-caption1);font-weight:700;display:flex;align-items:center}
+.tools{position:absolute;left:16px;right:16px;bottom:40px;padding:12px;border-radius:30px;background:rgba(255,255,255,.94);box-shadow:0 12px 32px rgba(77,22,85,.18),0 2px 6px rgba(77,22,85,.06);display:flex;flex-direction:column;gap:12px;z-index:5}
+.tools .r{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tl{width:46px;height:46px;border-radius:16px;border:none;background:transparent;color:#A98BAE;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tl.on{background:var(--plum);color:#fff}
+.sw{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7),0 0 0 1px rgba(77,22,85,.12)}
+.sw.on{box-shadow:inset 0 0 0 3px #fff,0 0 0 2.5px var(--plum)}
+.tools .div{height:1px;background:var(--line)}
+.zig{width:52px;height:6px;border-radius:3px;background:var(--plum-deep)}
+
+    </style>
+</head>
+<body>
+    <div class="device" data-platform="ios" data-form-factor="phone">
+        <!-- Dynamic Island (always on top) -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <svg width="20" height="13" viewBox="0 0 20 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.3466 1.625C19.3466 1.00368 18.8654 0.5 18.2718 0.5H17.1969C16.6033 0.5 16.1221 1.00368 16.1221 1.625V11.375C16.1221 11.9963 16.6033 12.5 17.1969 12.5H18.2718C18.8654 12.5 19.3466 11.9963 19.3466 11.375V1.625ZM11.8565 2.9H12.9313C13.5249 2.9 14.0061 3.41577 14.0061 4.052V11.348C14.0061 11.9842 13.5249 12.5 12.9313 12.5H11.8565C11.2629 12.5 10.7817 11.9842 10.7817 11.348V4.052C10.7817 3.41577 11.2629 2.9 11.8565 2.9ZM7.49008 5.5H6.41527C5.82167 5.5 5.34046 6.02233 5.34046 6.66667V11.3333C5.34046 11.9777 5.82167 12.5 6.41527 12.5H7.49008C8.08368 12.5 8.56489 11.9777 8.56489 11.3333V6.66667C8.56489 6.02233 8.08368 5.5 7.49008 5.5ZM2.14962 7.9H1.07481C0.481208 7.9 0 8.41487 0 9.05V11.35C0 11.9851 0.481208 12.5 1.07481 12.5H2.14962C2.74322 12.5 3.22443 11.9851 3.22443 11.35V9.05C3.22443 8.41487 2.74322 7.9 2.14962 7.9Z"/></svg>
+                <svg width="18" height="13" viewBox="26.9 0 17.3 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.5408 3.02062C38.0469 3.02072 40.4571 3.92573 42.2734 5.54859C42.4102 5.67388 42.6288 5.6723 42.7635 5.54504L44.0709 4.30497C44.1391 4.24043 44.1771 4.153 44.1766 4.06204C44.176 3.97107 44.1369 3.88407 44.0679 3.82028C39.3008 -0.47342 31.7801 -0.47342 27.0129 3.82028C26.9439 3.88402 26.9047 3.971 26.9041 4.06197C26.9034 4.15293 26.9414 4.24038 27.0095 4.30497L28.3173 5.54504C28.4519 5.67249 28.6707 5.67407 28.8074 5.54859C30.6239 3.92562 33.0344 3.02061 35.5408 3.02062ZM35.539 7.16274C36.9067 7.16265 38.2255 7.66492 39.2393 8.57193C39.3765 8.70066 39.5925 8.69787 39.7261 8.56564L41.0232 7.27077C41.0915 7.20285 41.1294 7.11071 41.1285 7.01496C41.1275 6.91922 41.0877 6.82786 41.018 6.76132C37.9308 3.92401 33.1498 3.92401 30.0626 6.76132C29.9929 6.82786 29.9531 6.91926 29.9522 7.01504C29.9512 7.11081 29.9893 7.20294 30.0577 7.27077L31.3545 8.56564C31.4881 8.69787 31.7041 8.70066 31.8413 8.57193C32.8544 7.66552 34.1722 7.1633 35.539 7.16274ZM38.0803 9.90455C38.0823 10.008 38.0449 10.1076 37.9771 10.1801L35.7838 12.5894C35.7195 12.6602 35.6319 12.7 35.5404 12.7C35.4489 12.7 35.3613 12.6602 35.297 12.5894L33.1033 10.1801C33.0356 10.1076 32.9983 10.0079 33.0003 9.90447C33.0023 9.80107 33.0434 9.70315 33.114 9.63384C34.5147 8.34428 36.5661 8.34428 37.9669 9.63384C38.0373 9.70321 38.0784 9.80115 38.0803 9.90455Z"/></svg>
+                <svg width="27" height="13" viewBox="52.5 0 27 13" fill="none"><rect opacity="0.35" x="52.5474" y="0.5" width="24" height="12" rx="3.8" stroke="currentColor"/><path opacity="0.4" d="M77.9473 4.66666V8.66666C78.752 8.32788 79.2753 7.53979 79.2753 6.66666C79.2753 5.79352 78.752 5.00543 77.9473 4.66666Z" fill="currentColor"/><rect x="53.8474" y="2" width="21" height="9" rx="2.5" fill="currentColor"/></svg>
+            </div>
+        </div>
+
+        <!-- Insert screen content here -->
+        <main class="device-content">
+<div class="screen" style="min-height:932px">
+  <header class="nav">
+    <button class="ibtn" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <span class="mid">Drawing together</span>
+    <button class="ibtn" aria-label="Save"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
+  </header>
+  <div class="sub"><span class="live"><i class="pd"></i>Live with Minh · 2:14</span>
+    <span class="ovl" style="margin-left:auto"><img class="av" style="width:34px;height:34px" src="assets/everlove-memoji-linh.jpg" alt="Linh"><img class="av" style="width:34px;height:34px" src="assets/everlove-memoji-partner.jpg" alt="Minh"></span></div>
+  <div class="prompt">Prompt: <b>Our dream home</b><button class="link" style="min-height:32px;margin-left:auto">New prompt</button></div>
+  <section class="paper" aria-label="Shared canvas">
+    <svg class="art" viewBox="0 0 398 520" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <!-- Minh (plum): house -->
+      <path d="M92 330V228l100-78 100 78v102Z" stroke="#4D1655" stroke-width="7"/>
+      <path d="M170 330v-62h44v62" stroke="#4D1655" stroke-width="7"/>
+      <path d="M62 242 192 138 322 242" stroke="#4D1655" stroke-width="7"/>
+      <!-- Linh (orchid): garden + heart window + sun -->
+      <path d="M40 372c30-14 52 14 82 0s52 14 82 0 52 14 82 0 52 14 76 0" stroke="#D985D0" stroke-width="7"/>
+      <path d="M118 262c-9-9-4-22 6-22 4 0 8 2 10 6 2-4 6-6 10-6 10 0 15 13 6 22l-16 15Z" stroke="#F0507F" stroke-width="5" fill="#FBD3DD"/>
+      <circle cx="330" cy="92" r="26" stroke="#F2B03B" stroke-width="6"/>
+      <path d="M330 48v-12M330 148v-12M286 92h-12M386 92h-12M299 61l-8-8M369 131l-8-8M361 61l8-8M299 123l-8 8" stroke="#F2B03B" stroke-width="5"/>
+      <path d="M52 420c14-18 24-18 38 0M110 430c12-14 20-14 32 0M300 424c14-20 26-20 40 0" stroke="#D985D0" stroke-width="6"/>
+      <path d="M252 300c10-6 22-6 34 0" stroke="#D985D0" stroke-width="7"/>
+    </svg>
+    <div class="cur" style="left:288px;top:284px"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4 3l16 7-7 2-2 7Z"/></svg><span class="lb">Minh</span></div>
+  </section>
+  <div class="tools">
+    <div class="r">
+      <button class="tl on" aria-label="Pen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.4 3.6a2.1 2.1 0 0 1 3 3L7.4 18.6a2 2 0 0 1-.9.5l-2.9.8a.5.5 0 0 1-.6-.6l.8-2.9a2 2 0 0 1 .5-.9Z"/></svg></button>
+      <button class="tl" aria-label="Brush"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg></button>
+      <button class="tl" aria-label="Eraser"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg></button>
+      <span style="width:1px;height:28px;background:var(--line)"></span>
+      <button class="tl" aria-label="Undo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg></button>
+      <button class="tl" aria-label="Clear canvas"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+    </div>
+    <div class="div"></div>
+    <div class="r" style="padding:0 6px"><button class="sw " style="background:#4D1655" aria-label="Color 1"></button><button class="sw on" style="background:#D985D0" aria-label="Color 2"></button><button class="sw " style="background:#F0507F" aria-label="Color 3"></button><button class="sw " style="background:#F2B03B" aria-label="Color 4"></button><button class="sw " style="background:#2FB26B" aria-label="Color 5"></button><span class="zig" aria-label="Brush size"></span></div>
+  </div>
+</div>
+        </main>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator-area">
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Figma export chrome (host page only; not serialized into the payload) -->
+    <div class="figma-export-toolbar" data-figma-export-ignore>
+        <span class="figma-export-toast" hidden></span>
+        <button type="button" class="figma-export-btn" onclick="window.__copyDesignToFigma()">
+            Copy to Figma
+        </button>
+    </div>
+
+    <script src=".design/figma-export.js"></script>
+<script>
+document.querySelectorAll('.tl:not([aria-label=Undo]):not([aria-label="Clear canvas"])').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tl').forEach(x=>x.classList.remove('on'));b.classList.add('on')});
+document.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{document.querySelectorAll('.sw').forEach(x=>x.classList.remove('on'));b.classList.add('on')});
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EverLove - Home status sheet</title>
+    <link rel="stylesheet" href=".design/device-chrome.css">
+    <link rel="stylesheet" href=".design/device-ios.css">
+    <link rel="stylesheet" href=".design/everlove.css">
+    <style>
+        /* Per-mockup design tokens. design-system.html (if present in the
+           working directory) overrides these. Keep in sync with
+           components/ios/01-base-tokens.md. */
+        :root {
+            --color-bg: #FFFFFF;
+            --color-text: #000000;
+            --color-text-secondary: #6B7280;
+            --color-island: #000000;
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* iOS HIG type ramp */
+            --text-caption2:    11px;
+            --text-caption1:    12px;
+            --text-footnote:    13px;
+            --text-subheadline: 15px;
+            --text-callout:     16px;
+            --text-body:        17px;
+            --text-title3:      20px;
+            --text-title2:      22px;
+            --text-title1:      28px;
+            --text-largetitle:  34px;
+            --text-md:          var(--text-body);
+        }
+
+:root{
+  --color-bg:#FFFFFF; --color-text:#2A0F2E; --color-text-secondary:#85708A;
+  --plum:#4D1655; --plum-deep:#2F0D36; --plum-700:#6A2573;
+  --orchid:#D985D0; --orchid-deep:#B95AB0; --orchid-soft:#EEC3E9;
+  --blush:#F8E3F5; --blush-50:#FDF4FC; --line:#F0DEEC;
+  --ink:#2A0F2E; --muted:#85708A;
+  --ok:#2FB26B; --ok-bg:#E3F6EB; --gold:#F2B03B; --rose:#F0507F;
+  --shadow-card:0 6px 24px rgba(77,22,85,.08);
+  --shadow-btn:0 8px 20px rgba(77,22,85,.28);
+}
+.device{color:var(--ink)}
+.screen{min-height:932px;display:flex;flex-direction:column;position:relative}
+.wash{background:linear-gradient(180deg,#F5CFF0 0%,#FAE4F7 28%,#FFFFFF 62%)}
+.av{border-radius:50%;display:block;flex-shrink:0}
+button{font-family:inherit;color:inherit}
+
+.t-large{font-size:var(--text-largetitle);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--plum-deep)}
+.t-title{font-size:var(--text-title1);font-weight:700;line-height:1.14;letter-spacing:-.028em;color:var(--plum-deep)}
+.t-sub{font-size:var(--text-subheadline);line-height:1.35;color:var(--muted)}
+
+.btn{height:54px;width:100%;border:none;border-radius:27px;font-size:var(--text-body);font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:active{transform:scale(.98)}
+.btn-plum{background:var(--plum);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-soft{background:rgba(255,255,255,.72);color:var(--plum);box-shadow:inset 0 0 0 1px rgba(77,22,85,.10)}
+.btn-orchid{background:var(--orchid);color:var(--plum-deep)}
+.btn-white{background:#fff;color:var(--plum)}
+.btn[disabled]{opacity:.4;box-shadow:none}
+.link{background:none;border:none;font-size:var(--text-subheadline);font-weight:600;color:var(--plum);cursor:pointer;min-height:44px}
+
+.ibtn{width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--plum);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(77,22,85,.10);cursor:pointer;position:relative;flex-shrink:0}
+.ibtn.ghost{background:none;box-shadow:none}
+.dot{position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 2px #fff}
+
+.card{background:#fff;border-radius:24px;box-shadow:var(--shadow-card)}
+.chip{height:32px;padding:0 12px;border-radius:16px;background:var(--blush);color:var(--plum);
+  font-size:var(--text-footnote);font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:none}
+.chip.on{background:var(--plum);color:#fff}
+.chip svg{flex-shrink:0}
+.seg{display:flex;gap:6px;flex:1}
+.seg i{flex:1;height:4px;border-radius:2px;background:rgba(77,22,85,.14)}
+.seg i.on{background:var(--plum)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;padding:0 20px 12px}
+.sec h2{font-size:var(--text-title3);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
+.sec a{font-size:var(--text-subheadline);font-weight:600;color:var(--orchid-deep)}
+.crown{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--plum-deep);color:var(--gold)}
+
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.head{position:sticky;top:0;z-index:10;padding:calc(59px + 8px) 20px 10px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(245,207,240,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
+.head .ibtn.me{padding:0;overflow:hidden}
+.days{height:40px;padding:0 16px 0 12px;border-radius:20px;background:#fff;box-shadow:0 2px 10px rgba(77,22,85,.10);display:flex;align-items:center;gap:8px;
+  font-size:var(--text-subheadline);color:var(--muted)}
+.days b{font-size:var(--text-body);color:var(--plum-deep);font-weight:700}
+.days svg{color:var(--rose)}
+.hero{margin:10px 20px 0;padding:22px 18px 16px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 0%,#FBE3F7 0%,rgba(255,255,255,0) 70%)}
+.pair{position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:0 14px}
+.who{display:flex;flex-direction:column;align-items:center;gap:8px;width:110px;position:relative}
+.who .nm{font-size:var(--text-body);font-weight:700;color:var(--plum-deep);display:flex;align-items:center;gap:6px}
+.who .on{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.who .st{position:absolute;top:-14px;padding:5px 11px;border-radius:14px;background:var(--plum);color:#fff;font-size:var(--text-caption1);font-weight:600;white-space:nowrap}
+.who .st.you{background:#fff;color:var(--plum);box-shadow:0 4px 12px rgba(77,22,85,.12)}
+.mid{position:absolute;left:0;right:0;top:56px;display:flex;justify-content:center}
+.mid svg.line{position:absolute;top:18px;left:132px;width:106px;height:24px}
+.mid .hb{width:44px;height:44px;border-radius:50%;background:linear-gradient(145deg,#F7A6E8,var(--orchid-deep));color:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 6px rgba(217,133,208,.18)}
+.stats{position:relative;display:flex;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.stats div{flex:1;text-align:center}
+.stats b{display:block;font-size:var(--text-body);font-weight:700;color:var(--plum-deep)}
+.stats span{font-size:var(--text-caption1);color:var(--muted)}
+.quiz{margin:22px 20px 0;padding:22px;border-radius:28px;background:linear-gradient(135deg,#5E1D68,#3A1042);color:#fff;position:relative;overflow:hidden}
+.quiz .kick{font-size:var(--text-caption1);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--orchid-soft)}
+.quiz h3{font-size:22px;line-height:1.15;letter-spacing:-.025em;margin:8px 0 6px;max-width:230px}
+.quiz p{font-size:var(--text-subheadline);color:rgba(255,255,255,.72)}
+.quiz .btn{width:auto;display:inline-flex;height:44px;padding:0 20px;margin-top:16px;font-size:var(--text-subheadline)}
+.quiz .deco{position:absolute;right:-22px;bottom:-26px;color:rgba(217,133,208,.28)}
+.quiz .deco2{position:absolute;right:62px;top:20px;color:rgba(217,133,208,.5)}
+.special{margin:14px 20px 0;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.special .ico{width:48px;height:48px;border-radius:16px;background:var(--blush);color:var(--plum);display:flex;align-items:center;justify-content:center}
+.special .tx{flex:1}
+.special b{display:block;font-size:var(--text-body);font-weight:600;color:var(--plum-deep)}
+.special span{font-size:var(--text-footnote);color:var(--muted)}
+.special .cnt{font-size:var(--text-footnote);font-weight:700;color:var(--orchid-deep);background:var(--blush-50);padding:6px 10px;border-radius:12px}
+
+    
+.el-tab{position:relative}
+.el-tab .bdg{position:absolute;top:9px;left:calc(50% + 7px);width:11px;height:11px;border-radius:50%;background:var(--plum);box-shadow:0 0 0 2px #fff}
+
+/* status sheet (spec 5.2) */
+.status-bar,.home-indicator-area{z-index:70}
+.scrim{position:absolute;inset:0;z-index:60;background:rgba(47,13,54,.5)}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:61;background:#fff;border-radius:32px 32px 0 0;padding:8px 20px 38px;box-shadow:0 -10px 40px rgba(47,13,54,.25)}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:rgba(77,22,85,.18);margin:0 auto 6px}
+.sheet .sh{display:flex;align-items:center;justify-content:space-between}
+.sheet .sh h2{font-size:var(--text-title3);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
+.sheet .sh .link{padding:0 4px;min-width:44px}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.pre{height:48px;border:none;border-radius:16px;background:var(--blush-50);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:10px;padding:0 14px;
+  font-size:var(--text-subheadline);font-weight:600;color:var(--plum-deep);cursor:pointer;text-align:left}
+.pre .e{font-size:20px;line-height:1;width:24px;text-align:center}
+.pre.sel{background:var(--plum);color:#fff;box-shadow:none}
+.pre .ck{margin-left:auto;color:var(--orchid-soft)}
+.cust{display:flex;align-items:center;gap:8px;margin-top:14px;height:52px;padding:0 16px 0 4px;border-radius:26px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--line)}
+.cust .ibtn{box-shadow:none;background:var(--blush)}
+.cust input{flex:1;min-width:0;border:none;outline:none;background:none;font:inherit;font-size:var(--text-body);color:var(--plum-deep)}
+.cust input::placeholder{color:var(--muted)}
+.cust .cn{font-size:var(--text-footnote);font-weight:600;color:var(--muted)}
+.note{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:var(--text-footnote);line-height:1.35;color:var(--muted)}
+.note svg{flex-shrink:0;margin-top:1px}
+    </style>
+</head>
+<body>
+    <div class="device" data-platform="ios" data-form-factor="phone">
+        <!-- Dynamic Island (always on top) -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <svg width="20" height="13" viewBox="0 0 20 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.3466 1.625C19.3466 1.00368 18.8654 0.5 18.2718 0.5H17.1969C16.6033 0.5 16.1221 1.00368 16.1221 1.625V11.375C16.1221 11.9963 16.6033 12.5 17.1969 12.5H18.2718C18.8654 12.5 19.3466 11.9963 19.3466 11.375V1.625ZM11.8565 2.9H12.9313C13.5249 2.9 14.0061 3.41577 14.0061 4.052V11.348C14.0061 11.9842 13.5249 12.5 12.9313 12.5H11.8565C11.2629 12.5 10.7817 11.9842 10.7817 11.348V4.052C10.7817 3.41577 11.2629 2.9 11.8565 2.9ZM7.49008 5.5H6.41527C5.82167 5.5 5.34046 6.02233 5.34046 6.66667V11.3333C5.34046 11.9777 5.82167 12.5 6.41527 12.5H7.49008C8.08368 12.5 8.56489 11.9777 8.56489 11.3333V6.66667C8.56489 6.02233 8.08368 5.5 7.49008 5.5ZM2.14962 7.9H1.07481C0.481208 7.9 0 8.41487 0 9.05V11.35C0 11.9851 0.481208 12.5 1.07481 12.5H2.14962C2.74322 12.5 3.22443 11.9851 3.22443 11.35V9.05C3.22443 8.41487 2.74322 7.9 2.14962 7.9Z"/></svg>
+                <svg width="18" height="13" viewBox="26.9 0 17.3 13" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M35.5408 3.02062C38.0469 3.02072 40.4571 3.92573 42.2734 5.54859C42.4102 5.67388 42.6288 5.6723 42.7635 5.54504L44.0709 4.30497C44.1391 4.24043 44.1771 4.153 44.1766 4.06204C44.176 3.97107 44.1369 3.88407 44.0679 3.82028C39.3008 -0.47342 31.7801 -0.47342 27.0129 3.82028C26.9439 3.88402 26.9047 3.971 26.9041 4.06197C26.9034 4.15293 26.9414 4.24038 27.0095 4.30497L28.3173 5.54504C28.4519 5.67249 28.6707 5.67407 28.8074 5.54859C30.6239 3.92562 33.0344 3.02061 35.5408 3.02062ZM35.539 7.16274C36.9067 7.16265 38.2255 7.66492 39.2393 8.57193C39.3765 8.70066 39.5925 8.69787 39.7261 8.56564L41.0232 7.27077C41.0915 7.20285 41.1294 7.11071 41.1285 7.01496C41.1275 6.91922 41.0877 6.82786 41.018 6.76132C37.9308 3.92401 33.1498 3.92401 30.0626 6.76132C29.9929 6.82786 29.9531 6.91926 29.9522 7.01504C29.9512 7.11081 29.9893 7.20294 30.0577 7.27077L31.3545 8.56564C31.4881 8.69787 31.7041 8.70066 31.8413 8.57193C32.8544 7.66552 34.1722 7.1633 35.539 7.16274ZM38.0803 9.90455C38.0823 10.008 38.0449 10.1076 37.9771 10.1801L35.7838 12.5894C35.7195 12.6602 35.6319 12.7 35.5404 12.7C35.4489 12.7 35.3613 12.6602 35.297 12.5894L33.1033 10.1801C33.0356 10.1076 32.9983 10.0079 33.0003 9.90447C33.0023 9.80107 33.0434 9.70315 33.114 9.63384C34.5147 8.34428 36.5661 8.34428 37.9669 9.63384C38.0373 9.70321 38.0784 9.80115 38.0803 9.90455Z"/></svg>
+                <svg width="27" height="13" viewBox="52.5 0 27 13" fill="none"><rect opacity="0.35" x="52.5474" y="0.5" width="24" height="12" rx="3.8" stroke="currentColor"/><path opacity="0.4" d="M77.9473 4.66666V8.66666C78.752 8.32788 79.2753 7.53979 79.2753 6.66666C79.2753 5.79352 78.752 5.00543 77.9473 4.66666Z" fill="currentColor"/><rect x="53.8474" y="2" width="21" height="9" rx="2.5" fill="currentColor"/></svg>
+            </div>
+        </div>
+
+        <!-- Insert screen content here -->
+        <main class="device-content">
+
+<div class="screen wash" style="padding-bottom:140px">
+  <header class="head">
+    <button class="ibtn me" aria-label="Settings"><svg class="av" style="width:44px;height:44px;" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ag1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6B7E4"/><stop offset="1" stop-color="#D985D0"/></linearGradient><clipPath id="ag1c"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#ag1c)"><rect width="100" height="100" fill="url(#ag1)"/><path d="M29 46C25 18 75 18 71 46L74 80H26Z" fill="#2B1620"/><path d="M10 104C12 78 32 70 50 70S88 78 90 104Z" fill="#4D1655"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#F3C4A0"/><ellipse cx="50" cy="45" rx="18" ry="20" fill="#F3C4A0"/><path d="M31 42C32 24 68 24 69 42C60 33 44 34 31 42Z" fill="#2B1620"/><circle cx="43.500" cy="47" r="1.800" fill="#2A0F2E"/><circle cx="56.500" cy="47" r="1.800" fill="#2A0F2E"/><path d="M44.500 54.500C47 57.500 53 57.500 55.500 54.500" fill="none" stroke="#2A0F2E" stroke-width="1.800" stroke-linecap="round"/><ellipse cx="38.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/><ellipse cx="61.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/></g></svg></button>
+    <div class="days"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.800 3 16.500 3 19.600 3 22 5.400 22 8.500c0 3.700-3.400 6.800-8.600 11.500z"/></svg><b>128</b> days together</div>
+    <button class="ibtn" aria-label="Notifications"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="dot"></span></button>
+  </header>
+
+  <section class="card hero">
+    <div class="pair">
+      <div class="who"><span class="st you">💭 Thinking of you</span>
+        <div style="margin-top:26px"><svg class="av" style="width:96px;height:96px;box-shadow:0 0 0 3px #fff,0 0 0 5px #D985D0;" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ag2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6B7E4"/><stop offset="1" stop-color="#D985D0"/></linearGradient><clipPath id="ag2c"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#ag2c)"><rect width="100" height="100" fill="url(#ag2)"/><path d="M29 46C25 18 75 18 71 46L74 80H26Z" fill="#2B1620"/><path d="M10 104C12 78 32 70 50 70S88 78 90 104Z" fill="#4D1655"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#F3C4A0"/><ellipse cx="50" cy="45" rx="18" ry="20" fill="#F3C4A0"/><path d="M31 42C32 24 68 24 69 42C60 33 44 34 31 42Z" fill="#2B1620"/><circle cx="43.500" cy="47" r="1.800" fill="#2A0F2E"/><circle cx="56.500" cy="47" r="1.800" fill="#2A0F2E"/><path d="M44.500 54.500C47 57.500 53 57.500 55.500 54.500" fill="none" stroke="#2A0F2E" stroke-width="1.800" stroke-linecap="round"/><ellipse cx="38.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/><ellipse cx="61.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/></g></svg></div>
+        <div class="nm"><i class="on"></i>Linh</div></div>
+      <div class="mid"><svg class="line" viewBox="0 0 106 24" fill="none" aria-hidden="true"><path d="M0 12H34L40 4L48 20L56 8L62 12H106" stroke="#D985D0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 0"/></svg><div class="hb"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.800 3 16.500 3 19.600 3 22 5.400 22 8.500c0 3.700-3.400 6.800-8.600 11.500z"/></svg></div></div>
+      <div class="who"><span class="st">💜 Missing you</span>
+        <div style="margin-top:26px"><svg class="av" style="width:96px;height:96px;box-shadow:0 0 0 3px #fff,0 0 0 5px #4D1655;" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ag3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD6B8"/><stop offset="1" stop-color="#F7A98B"/></linearGradient><clipPath id="ag3c"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#ag3c)"><rect width="100" height="100" fill="url(#ag3)"/><path d="M10 104C12 78 32 70 50 70S88 78 90 104Z" fill="#FFFFFF"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#E4AE86"/><ellipse cx="50" cy="45" rx="18" ry="20" fill="#E4AE86"/><path d="M31 43C27 20 73 20 69 43C66 33 58 30 50 30C42 30 34 33 31 43Z" fill="#1E1418"/><circle cx="43.500" cy="47" r="1.800" fill="#2A0F2E"/><circle cx="56.500" cy="47" r="1.800" fill="#2A0F2E"/><path d="M44.500 54.500C47 57.500 53 57.500 55.500 54.500" fill="none" stroke="#2A0F2E" stroke-width="1.800" stroke-linecap="round"/><ellipse cx="38.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/><ellipse cx="61.500" cy="52" rx="3.200" ry="2" fill="#F58AA3" opacity=".45"/></g></svg></div>
+        <div class="nm"><i class="on"></i>Minh</div></div>
+    </div>
+    <div class="stats">
+      <div><b>3.2 km</b><span>apart</span></div>
+      <div><b>82%</b><span>Minh's battery</span></div>
+      <div><b>Home</b><span>since 6:10 PM</span></div>
+    </div>
+  </section>
+
+  <section class="tiles">
+    <button class="tile t-loc"><svg class="art" viewBox="0 0 64 64" aria-hidden="true"><path d="M5 18l19-6 16 6 19-6v34l-19 6-16-6-19 6z" fill="#8FD36C"/><path d="M24 12l16 6c-4 10 4 20 0 34l-16-6c4-10-4-22 0-34z" fill="#8EC9F5"/><path d="M6 42c14-4 26-10 52-20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="14" cy="30" r="3.200" fill="#4FA85A"/><circle cx="48" cy="44" r="4" fill="#4FA85A"/><path d="M32 6c-8 0-13 5.500-13 12.500C19 29 32 42 32 42s13-13 13-23.500C45 11.500 40 6 32 6z" fill="#F2703E"/><path d="M32 26l-5.400-5.200a3.100 3.100 0 0 1 5.400-3.200 3.100 3.100 0 0 1 5.400 3.200z" fill="#fff"/></svg>Location</button>
+    <button class="tile t-mom"><svg class="art" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 14l34-6v8z" fill="#B9A6F7"/><rect x="8" y="14" width="48" height="42" rx="7" fill="#fff"/><rect x="12" y="18" width="40" height="34" rx="4" fill="#BDB0F8"/><circle cx="25" cy="39" r="9" fill="#6FC3F0"/><circle cx="22" cy="37" r="1.300" fill="#2F0D36"/><path d="M26 36.500l3 1" stroke="#2F0D36" stroke-width="1.200" stroke-linecap="round"/><path d="M22 42c1.500 1.500 3.500 1.500 5 0" fill="none" stroke="#2F0D36" stroke-width="1.200" stroke-linecap="round"/><path d="M36 50V28c0-6 4-9 8-9s8 3 8 9v22z" fill="#F26DC6"/><circle cx="41" cy="33" r="1.800" fill="#2F0D36"/><circle cx="48" cy="33" r="1.800" fill="#2F0D36"/><path d="M40 39c1 4 7 4 8 0z" fill="#8A1F5E"/><path d="M13 14.500c-2.200-2.200-.5-5.300 1.800-5.300 1.100 0 1.800.6 2.200 1.200.4-.6 1.100-1.200 2.200-1.200 2.300 0 4 3.100 1.800 5.300L17 19z" fill="#F04DA8" stroke="#fff" stroke-width="1.500" stroke-linejoin="round"/></svg>Moments</button>
+    <button class="tile t-play"><svg class="art" viewBox="0 0 64 64" aria-hidden="true"><path d="M26 18c2-7 8-8 13-6" fill="none" stroke="#7B6CF5" stroke-width="2" stroke-linecap="round"/><path d="M8 40c0 7 3 12 8 12 3 0 5-3 7-6h18c2 3 4 6 7 6 5 0 8-5 8-12v-6H8z" fill="#7B6CF5"/><path d="M8 30c0-7 4-12 11-12h26c7 0 11 5 11 12v8c0 5-3 9-8 9-3 0-5-2-7-4H23c-2 2-4 4-7 4-5 0-8-4-8-9z" fill="#EA4FAF"/><rect x="27" y="20" width="10" height="3" rx="1.500" fill="#F9A8DD"/><path d="M20 28v8M16 32h8" stroke="#fff" stroke-width="3.200" stroke-linecap="round"/><path d="M46 38l-4.800-4.600a2.800 2.800 0 0 1 4.800-2.800 2.800 2.800 0 0 1 4.800 2.800z" fill="#fff"/></svg>Play</button>
+    <button class="tile t-wid"><svg class="art" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="7" width="23" height="23" rx="6" fill="#F04DA8"/><path d="M17.500 24l-5-4.800a2.900 2.900 0 0 1 5-3 2.900 2.900 0 0 1 5 3z" fill="#fff"/><rect x="35" y="7" width="23" height="23" rx="6" fill="#F2B03B"/><path d="M46.500 13v11M41 18.500h11" stroke="#fff" stroke-width="3.500" stroke-linecap="round"/><rect x="6" y="35" width="52" height="22" rx="8" fill="#8E6CF2"/><path d="M19 52c-3-3-4.500-5-4.500-7a4.500 4.500 0 0 1 9 0c0 2-1.500 4-4.500 7z" fill="#fff"/><path d="M45 52c-3-3-4.500-5-4.500-7a4.500 4.500 0 0 1 9 0c0 2-1.500 4-4.500 7z" fill="#fff"/><path d="M27 48h2m3 1h2m3-1h2" stroke="#fff" stroke-width="1.800" stroke-linecap="round"/></svg>Widget</button>
+  </section>
+
+  <section class="quiz">
+    <span class="deco"><svg width="150" height="150" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.800 3 16.500 3 19.600 3 22 5.400 22 8.500c0 3.700-3.400 6.800-8.600 11.500z"/></svg></span><span class="deco2"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.800 3 16.500 3 19.600 3 22 5.400 22 8.500c0 3.700-3.400 6.800-8.600 11.500z"/></svg></span>
+    <div class="kick">Couple quiz</div>
+    <h3>How well do we know each other?</h3>
+    <p>5 questions · about 1 minute</p>
+    <button class="btn btn-orchid">Take the quiz <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  </section>
+
+  <section class="card special">
+    <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+    <div class="tx"><b>Our anniversary</b><span>October 18</span></div>
+    <span class="cnt">in 12 days</span>
+  </section>
+</div>
+        </main>
+        <nav class="el-tabbar" aria-label="Primary">
+            <button class="el-tab active" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><defs><mask id="elHomeCut"><rect width="24" height="24" fill="#fff"/><path d="M6.600 15.400c.9 1.300 2.700 1.300 3.600 0" fill="none" stroke="#000" stroke-width="1.500" stroke-linecap="round"/><path d="M12 8.400h7M17.200 6.600l1.800 1.800-1.800 1.800M19 12.600h-7M13.800 10.800 12 12.600l1.800 1.800" fill="none" stroke="#000" stroke-width="1.400" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><path mask="url(#elHomeCut)" d="M2.800 10.500C2.800 6.400 5.800 3.200 10 3.200h4c4.200 0 7.200 3.200 7.200 7.300v5.800c0 2.600-2 4.500-4.500 4.500H4.300c-.8 0-1.500-.7-1.500-1.500z"/></svg></button>
+            <button class="el-tab" aria-label="Pet"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="5" cy="11" rx="1.9" ry="2.5" transform="rotate(-22 5 11)"/><ellipse cx="9.2" cy="6.4" rx="2" ry="2.7" transform="rotate(-8 9.2 6.4)"/><ellipse cx="14.800" cy="6.400" rx="2" ry="2.700" transform="rotate(8 14.8 6.4)"/><ellipse cx="19" cy="11" rx="1.9" ry="2.5" transform="rotate(22 19 11)"/><path d="M12 11.200c-2.800 0-5.400 2.900-5.400 5.400 0 1.700 1.300 2.700 2.800 2.700 1.100 0 1.600-.5 2.600-.5s1.500.5 2.600.5c1.500 0 2.800-1 2.800-2.700 0-2.500-2.600-5.400-5.400-5.400z"/></svg></button>
+            <button class="el-tab" aria-label="Camera"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9 3.500h6l1.300 2H19c1.200 0 2.200 1 2.200 2.200v10.100c0 1.200-1 2.200-2.200 2.200H5c-1.200 0-2.200-1-2.200-2.200V7.700c0-1.200 1-2.200 2.200-2.200h2.700zM12 8.400a4.200 4.200 0 1 0 0 8.400 4.200 4.200 0 0 0 0-8.400z"/><circle cx="12" cy="12.600" r="2.200"/></svg></button>
+            <button class="el-tab" aria-label="Chat, unread messages"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 3C6.900 3 2.800 6.600 2.800 11.100c0 2.200 1 4.200 2.600 5.700-.1 1.400-.6 2.600-1.600 3.500-.3.300 0 .8.400.7 1.900-.3 3.400-1.100 4.400-1.900.9.200 1.800.4 2.800.4 5.100 0 9.200-3.600 9.200-8.400S17.100 3 12 3zM9.400 8.900c-.7 0-1.200.7-1.200 1.600s.5 1.600 1.200 1.600 1.200-.7 1.200-1.600-.5-1.600-1.200-1.600zm5.200 0c-.7 0-1.200.7-1.200 1.600s.5 1.600 1.200 1.600 1.200-.7 1.200-1.600-.5-1.600-1.200-1.600z"/></svg><span class="bdg" aria-hidden="true"></span></button>
+            <button class="el-tab" aria-label="Us"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="7.600" cy="7.200" r="3.200"/><path d="M2.400 19.800v-2.900c0-2.100 1.600-3.800 3.700-3.800h3c2.100 0 3.700 1.700 3.700 3.800v2.900z"/><circle cx="16" cy="9.600" r="3.400"/><path d="M10 21v-3.100c0-2.200 1.800-4 4-4h4c2.200 0 4 1.800 4 4V21z"/></svg></button>
+        </nav>
+        <div class="scrim"></div>
+        <div class="sheet" role="dialog" aria-modal="true" aria-label="Set your status">
+          <div class="grab"></div>
+          <div class="sh"><h2>Set your status</h2><button class="link" aria-label="Clear status">Clear</button></div>
+          <div class="presets">
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">💜</span>Missing you</button>
+      <button class="pre sel" aria-pressed="true"><span class="e" aria-hidden="true">💭</span>Thinking of you</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">💼</span>Busy</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">😴</span>Sleeping</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🏢</span>At work</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🚗</span>On my way</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🍜</span>Hungry</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🏋️</span>At the gym</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🍳</span>Cooking</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🤗</span>Need a hug</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🎬</span>Movie time</button>
+      <button class="pre" aria-pressed="false"><span class="e" aria-hidden="true">🏠</span>At home</button>
+          </div>
+          <div class="cust">
+            <button class="ibtn" aria-label="Choose emoji"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.500 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></button>
+            <input type="text" maxlength="24" placeholder="Or write your own" aria-label="Custom status, 24 characters maximum">
+            <span class="cn" aria-label="0 of 24 characters">0/24</span>
+          </div>
+          <p class="note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Clears automatically after 24 hours. Minh sees it instantly, with no notification.</p>
+        </div>
+        <!-- Home Indicator -->
+        <div class="home-indicator-area">
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Figma export chrome (host page only; not serialized into the payload) -->
+    <div class="figma-export-toolbar" data-figma-export-ignore>
+        <span class="figma-export-toast" hidden></span>
+        <button type="button" class="figma-export-btn" onclick="window.__copyDesignToFigma()">
+            Copy to Figma
+        </button>
+    </div>
+
+    <script src=".design/figma-export.js"></script>
+</body>
+</html>
