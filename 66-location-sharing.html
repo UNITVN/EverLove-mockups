@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EverLove - Profile and settings</title>
+    <title>EverLove - Location sharing</title>
     <link rel="stylesheet" href=".design/device-chrome.css">
     <link rel="stylesheet" href=".design/device-ios.css">
     <link rel="stylesheet" href=".design/everlove.css">
@@ -83,46 +83,69 @@ button{font-family:inherit;color:inherit}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+.head{position:sticky;top:0;z-index:10;padding:calc(59px + 8px) 20px 10px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(245,207,240,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
+.head .ibtn.me{padding:0;overflow:hidden}
+.days{height:40px;padding:0 16px 0 12px;border-radius:20px;background:#fff;box-shadow:0 2px 10px rgba(77,22,85,.10);display:flex;align-items:center;gap:8px;
+  font-size:var(--text-subheadline);color:var(--muted)}
+.days b{font-size:var(--text-body);color:var(--plum-deep);font-weight:700}
+.days svg{color:var(--rose)}
+.hero{margin:10px 20px 0;padding:22px 18px 16px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 0%,#FBE3F7 0%,rgba(255,255,255,0) 70%)}
+.pair{position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:0 14px}
+.who{display:flex;flex-direction:column;align-items:center;gap:8px;width:110px;position:relative}
+.who .nm{font-size:var(--text-body);font-weight:700;color:var(--plum-deep);display:flex;align-items:center;gap:6px}
+.who .on{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.who .st{position:absolute;top:-14px;padding:5px 11px;border-radius:14px;background:var(--plum);color:#fff;font-size:var(--text-caption1);font-weight:600;white-space:nowrap}
+.who .st.you{background:#fff;color:var(--plum);box-shadow:0 4px 12px rgba(77,22,85,.12)}
+.mid{position:absolute;left:0;right:0;top:56px;display:flex;justify-content:center}
+.mid svg.line{position:absolute;top:18px;left:132px;width:106px;height:24px}
+.mid .hb{width:44px;height:44px;border-radius:50%;background:linear-gradient(145deg,#F7A6E8,var(--orchid-deep));color:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 6px rgba(217,133,208,.18)}
+.stats{position:relative;display:flex;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.stats div{flex:1;text-align:center}
+.stats b{display:block;font-size:var(--text-body);font-weight:700;color:var(--plum-deep)}
+.stats span{font-size:var(--text-caption1);color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 20px;margin-top:22px}
+.tile{border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:var(--text-footnote);font-weight:600;color:var(--plum-deep);min-height:44px}
+.tile .ico{width:68px;height:68px;border-radius:22px;background:#fff;box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;color:var(--plum)}
+.tile.k1 .ico{background:var(--plum);color:#fff}
+.quiz{margin:22px 20px 0;padding:22px;border-radius:28px;background:linear-gradient(135deg,#5E1D68,#3A1042);color:#fff;position:relative;overflow:hidden}
+.quiz .kick{font-size:var(--text-caption1);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--orchid-soft)}
+.quiz h3{font-size:22px;line-height:1.15;letter-spacing:-.025em;margin:8px 0 6px;max-width:230px}
+.quiz p{font-size:var(--text-subheadline);color:rgba(255,255,255,.72)}
+.quiz .btn{width:auto;display:inline-flex;height:44px;padding:0 20px;margin-top:16px;font-size:var(--text-subheadline)}
+.quiz .deco{position:absolute;right:-22px;bottom:-26px;color:rgba(217,133,208,.28)}
+.quiz .deco2{position:absolute;right:62px;top:20px;color:rgba(217,133,208,.5)}
+.special{margin:14px 20px 0;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.special .ico{width:48px;height:48px;border-radius:16px;background:var(--blush);color:var(--plum);display:flex;align-items:center;justify-content:center}
+.special .tx{flex:1}
+.special b{display:block;font-size:var(--text-body);font-weight:600;color:var(--plum-deep)}
+.special span{font-size:var(--text-footnote);color:var(--muted)}
+.special .cnt{font-size:var(--text-footnote);font-weight:700;color:var(--orchid-deep);background:var(--blush-50);padding:6px 10px;border-radius:12px}
 .page-header{padding:calc(59px + 8px) 20px 12px;display:flex;align-items:flex-end;justify-content:space-between}
 .page-header .t-sub{margin-top:4px}
-.add{width:48px;height:48px;border-radius:50%;background:var(--plum);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-btn)}
-.filters{display:flex;gap:8px;padding:0 20px;overflow-x:auto;scrollbar-width:none}
-.filters .chip{height:36px;padding:0 16px;font-size:var(--text-subheadline)}
-.day{padding:22px 20px 10px;font-size:var(--text-footnote);color:var(--muted);font-weight:600}
-.post{margin:0 20px 16px;padding:10px 10px 14px}
-.ph{height:260px;border-radius:18px;overflow:hidden;position:relative}
-.ph svg{width:100%;height:100%;display:block}
-.by{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;border-radius:22px;background:rgba(47,13,54,.5);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff}
-.by b{display:block;font-size:var(--text-footnote);line-height:1.1}.by span{font-size:var(--text-caption2);opacity:.8}
-.post p{padding:12px 8px 8px;font-size:var(--text-body);line-height:1.35;color:var(--plum-deep)}
-.meta{display:flex;align-items:center;gap:14px;padding:0 8px}
-.meta .chip{margin-right:auto}
-.act{display:flex;align-items:center;gap:5px;font-size:var(--text-subheadline);font-weight:600;color:var(--rose)}
-.act.mu{color:var(--muted)}
-.act .pav{width:22px;height:22px;border-radius:50%;box-shadow:0 0 0 2px #fff;margin-left:-1px}
-
-
-.pf{display:flex;flex-direction:column;align-items:center;padding:4px 20px 6px}
-.pf .ph2{position:relative;width:104px;height:104px}
-.pf .edit{position:absolute;right:-2px;bottom:-2px;width:44px;height:44px;border:none;background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
-.pf .edit span{width:32px;height:32px;border-radius:50%;background:var(--plum);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #fff}
-.pf .nm{margin-top:10px;font-size:var(--text-title2);font-weight:700;letter-spacing:-.02em;color:var(--plum-deep)}
 .grp{margin:22px 20px 0}
 .grp h4{font-size:var(--text-caption1);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 16px 8px}
 .grp .card{padding:0 16px;border-radius:20px}
-.li{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid var(--line)}
+.li{display:flex;align-items:center;gap:14px;min-height:56px;padding:10px 0;border-bottom:1px solid var(--line)}
 .li:last-child{border-bottom:none}
 .li .ico{width:32px;height:32px;border-radius:10px;background:var(--blush-50);color:var(--plum);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .li .tx{flex:1;font-size:var(--text-body);color:var(--plum-deep);min-width:0}
-.li .tx small{display:block;font-size:var(--text-footnote);color:var(--muted);margin-top:1px}
-.li .r{font-size:var(--text-subheadline);color:var(--muted);display:flex;align-items:center;gap:4px}
+.li .tx small{display:block;font-size:var(--text-footnote);color:var(--muted);margin-top:1px;line-height:1.3}
 .tg{width:51px;height:31px;border-radius:16px;background:#E5D8E3;position:relative;flex-shrink:0;border:none;padding:0}
 .tg::after{content:"";position:absolute;left:2px;top:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.22);transition:transform .2s}
 .tg.on{background:var(--plum)}
 .tg.on::after{transform:translateX(20px)}
-.out{width:100%;border:none;background:none;min-height:56px;font-size:var(--text-body);font-weight:600;color:var(--rose);cursor:pointer;display:block}
-
+.status{margin:6px 20px 0;padding:18px 16px;display:flex;align-items:center;gap:14px}
+.status .live{width:44px;height:44px;border-radius:50%;background:var(--ok-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.status .live i{width:14px;height:14px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px rgba(47,178,107,.22)}
+.status .tx{flex:1;font-size:var(--text-body);font-weight:600;color:var(--plum-deep)}
+.status .tx small{display:block;font-size:var(--text-footnote);font-weight:400;color:var(--muted)}
+.rd{width:24px;height:24px;border-radius:50%;border:2px solid #CDB6CB;flex-shrink:0;background:#fff}
+.li .lk{background:none;border:none;padding:0;margin-top:4px;min-height:32px;font-size:var(--text-footnote);font-weight:600;color:var(--orchid-deep);cursor:pointer;display:block}
+.note{margin:18px 20px 0;padding:14px 16px;border-radius:18px;background:var(--blush-50);display:flex;gap:12px;align-items:flex-start;font-size:var(--text-footnote);line-height:1.4;color:var(--muted)}
+.note svg{flex-shrink:0;margin-top:1px;color:var(--orchid-deep)}
     </style>
 </head>
 <body>
@@ -140,27 +163,25 @@ button{font-family:inherit;color:inherit}
             </div>
         </div>
 
+
         <!-- Insert screen content here -->
         <main class="device-content">
 <div class="screen wash" style="padding-bottom:60px">
   <div class="page-header">
-    <div style="display:flex;align-items:center;gap:12px"><button class="ibtn" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><div><h1 class="t-large">Settings</h1><p class="t-sub">My profile and app settings</p></div></div>
+    <div style="display:flex;align-items:center;gap:12px"><button class="ibtn" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><div><h1 class="t-large">Location sharing</h1></div></div>
   </div>
-  <div class="pf">
-    <div class="ph2"><img class="av" src="assets/everlove-avatar-linh.jpg" alt="Your photo" width="104" height="104" style="width:104px;height:104px;object-fit:cover;box-shadow:0 0 0 3px #fff,0 0 0 5px #D985D0;"><button class="edit" aria-label="Edit photo"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.500 3.500a2.120 2.120 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></button></div>
-    <div class="nm">Linh</div>
-    <p class="t-sub" style="margin-top:2px">linh.tran@icloud.com</p>
-  </div>
-  <div class="grp"><section class="card">
-    <div class="li" role="button" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="tx">Notifications</span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div><div class="li" role="button" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="tx">Location sharing<small>Sharing with Minh</small></span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div><div class="li" role="button" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span class="tx">Privacy</span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div>
+  <section class="card status">
+    <span class="live"><i></i></span>
+    <div class="tx">Sharing with Minh</div>
+    <button class="tg on" role="switch" aria-checked="true" aria-label="Share my location"></button>
+  </section>
+  <div class="grp"><h4>Pause</h4><section class="card" role="radiogroup" aria-label="Pause sharing">
+    <div class="li" role="radio" aria-checked="false" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><span class="tx">1 hour</span><span class="rd"></span></div><div class="li" role="radio" aria-checked="false" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span><span class="tx">Until tomorrow morning</span><span class="rd"></span></div><div class="li" role="radio" aria-checked="false" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg></span><span class="tx">Until I turn it on</span><span class="rd"></span></div>
   </section></div>
   <div class="grp"><section class="card">
-    <div class="li" role="button" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2M16 7l3 3"/></svg></span><span class="tx">Security<small>Recovery key</small></span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div><div class="li" role="button" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="tx">Sign-in methods<small>Apple linked</small></span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div><div class="li" role="button" tabindex="0"><span class="ico" style="background:var(--plum-deep);color:var(--gold)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 8l4.500 4L12 5l4.500 7L21 8l-2 11H5z"/></svg></span><span class="tx">EverLove Premium<small>Try 7 days free</small></span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div>
+    <div class="li"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="tx">Always allow<small>Allow Always so Minh sees you when the app is closed</small><button class="lk">Change in Settings</button></span></div>
   </section></div>
-  <div class="grp"><section class="card">
-    <div class="li" role="button" tabindex="0"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22V4M4 4h14l-3 4 3 4H4"/></svg></span><span class="tx">Report a problem</span><span class="r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></div>
-  </section></div>
-  <div class="grp"><section class="card"><button class="out">Delete account</button><button class="out" style="color:var(--plum);border-top:1px solid var(--line);border-radius:0">Sign out</button></section></div>
+  <div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Minh is never told when you pause or stop. They only see that your location is unavailable.</span></div>
 </div>
         </main>
         <!-- Home Indicator -->

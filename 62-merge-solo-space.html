@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EverLove - Activity</title>
+    <title>EverLove - Bring your solo space</title>
     <link rel="stylesheet" href=".design/device-chrome.css">
     <link rel="stylesheet" href=".design/device-ios.css">
-    <link rel="stylesheet" href=".design/everlove.css">
     <style>
         /* Per-mockup design tokens. design-system.html (if present in the
            working directory) overrides these. Keep in sync with
@@ -80,49 +79,37 @@ button{font-family:inherit;color:inherit}
 .sec a{font-size:var(--text-subheadline);font-weight:600;color:var(--orchid-deep)}
 .crown{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--plum-deep);color:var(--gold)}
 
+/* floating tab bar — recolored to the plum / orchid palette */
+.float-tab-bar--icon-circle{box-shadow:0 10px 30px rgba(77,22,85,.16),0 2px 6px rgba(77,22,85,.06)}
+.float-tab-bar--icon-circle .float-tab-item{color:#A98BAE}
+.float-tab-bar--icon-circle .float-tab-item.active{background:var(--orchid);color:#fff}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-.page-header{padding:calc(59px + 8px) 20px 12px;display:flex;align-items:flex-end;justify-content:space-between}
-.page-header .t-sub{margin-top:4px}
-.add{width:48px;height:48px;border-radius:50%;background:var(--plum);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-btn)}
-.filters{display:flex;gap:8px;padding:0 20px;overflow-x:auto;scrollbar-width:none}
-.filters .chip{height:36px;padding:0 16px;font-size:var(--text-subheadline)}
-.day{padding:22px 20px 10px;font-size:var(--text-footnote);color:var(--muted);font-weight:600}
-.post{margin:0 20px 16px;padding:10px 10px 14px}
-.ph{height:260px;border-radius:18px;overflow:hidden;position:relative}
-.ph svg{width:100%;height:100%;display:block}
-.by{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;border-radius:22px;background:rgba(47,13,54,.5);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff}
-.by b{display:block;font-size:var(--text-footnote);line-height:1.1}.by span{font-size:var(--text-caption2);opacity:.8}
-.post p{padding:12px 8px 8px;font-size:var(--text-body);line-height:1.35;color:var(--plum-deep)}
-.meta{display:flex;align-items:center;gap:14px;padding:0 8px}
-.meta .chip{margin-right:auto}
-.act{display:flex;align-items:center;gap:5px;font-size:var(--text-subheadline);font-weight:600;color:var(--rose)}
-.act.mu{color:var(--muted)}
-.act .pav{width:22px;height:22px;border-radius:50%;box-shadow:0 0 0 2px #fff;margin-left:-1px}
-
-
-.feed{margin:0 20px;padding:4px 16px}
-.ev{display:flex;align-items:center;gap:12px;min-height:68px;padding:10px 0;border-bottom:1px solid var(--line);position:relative}
-.ev:last-child{border-bottom:none}
-.ev .lead{width:44px;height:44px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative}
-.ev .lead.ic{background:var(--blush);color:var(--plum)}
-.ev .lead.ic.pk{background:#FAD7EF;color:var(--rose)}
-.ev .lead .bdg{position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:var(--plum);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff}
-.ev .bdg.rs{background:var(--rose)}
-.ev .tx{flex:1;min-width:0;font-size:var(--text-subheadline);line-height:1.3;color:var(--plum-deep)}
-.ev .tx b{font-weight:700}
-.ev .tm{display:block;margin-top:2px;font-size:var(--text-caption1);color:var(--muted)}
-.ev.unread .tx{font-weight:500}
-.ev .ud{width:10px;height:10px;border-radius:50%;background:var(--plum);flex-shrink:0}
-.ev .ud.none{background:none}
-.foot{text-align:center;font-size:var(--text-caption1);color:var(--muted);padding:22px 20px 0;display:flex;align-items:center;justify-content:center;gap:6px}
-.sub-ro{display:none}
+.topbar{padding:calc(59px + 8px) 20px 0;display:flex;align-items:center;justify-content:space-between}
+.head{padding:8px 28px 0;text-align:center}
+.head .t-sub{margin-top:10px}
+.pair{display:flex;align-items:center;justify-content:center;margin-top:18px;height:64px}
+.pair .av{width:64px;height:64px;object-fit:cover}
+.pair .hb{width:30px;height:30px;border-radius:50%;background:var(--orchid-deep);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 -6px;z-index:1;box-shadow:0 0 0 4px #FAE4F7}
+.pair .you{box-shadow:0 0 0 3px #fff,0 0 0 5px #D985D0}
+.pair .them{box-shadow:0 0 0 3px #fff,0 0 0 5px #fff}
+.grp{margin:22px 20px 0}
+.grp .card{padding:0 16px;border-radius:20px}
+.li{display:flex;align-items:center;gap:14px;min-height:64px;border-bottom:1px solid var(--line)}
+.li:last-child{border-bottom:none}
+.li .ico{width:36px;height:36px;border-radius:12px;background:var(--blush-50);color:var(--plum);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.li .tx{flex:1;font-size:var(--text-body);color:var(--plum-deep);min-width:0;font-weight:600}
+.li .tx span{font-weight:400;color:var(--muted)}
+.tg{width:51px;height:31px;border-radius:16px;background:#E5D8E3;position:relative;flex-shrink:0;border:none;padding:0;cursor:pointer}
+.tg::after{content:"";position:absolute;left:2px;top:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.22);transition:transform .2s}
+.tg.on{background:var(--plum)}
+.tg.on::after{transform:translateX(20px)}
+.note{margin:14px 36px 0;text-align:center;font-size:var(--text-footnote);color:var(--muted);line-height:1.35}
+.foot{margin-top:auto;padding:20px 20px 44px;display:flex;flex-direction:column;align-items:center;gap:4px}
 
     </style>
 </head>
-<body>
     <div class="device" data-platform="ios" data-form-factor="phone">
         <!-- Dynamic Island (always on top) -->
         <div class="dynamic-island"></div>
@@ -138,23 +125,30 @@ button{font-family:inherit;color:inherit}
         </div>
 
         <!-- Insert screen content here -->
+
         <main class="device-content">
-<div class="screen wash" style="padding-bottom:60px">
-  <div class="page-header">
-    <div style="display:flex;align-items:center;gap:12px"><button class="ibtn" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><div><h1 class="t-large">Activity</h1></div></div>
+
+<div class="screen wash">
+  <div class="topbar"><button class="ibtn ghost" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button></div>
+  <div class="head">
+    <h1 class="t-title">Bring your solo space</h1>
+    <p class="t-sub">Choose what to share with Minh. Anything you keep separate stays visible only to you.</p>
   </div>
-  <div class="day">Today</div>
-  <section class="card feed" aria-label="Today">
-    <div class="ev unread" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg rs"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></span><div class="tx"><b>Minh</b> sent you a heart 💜<span class="tm">2m ago</span></div><span class="ud" aria-label="Unread"></span></div><div class="ev unread" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg rs"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></span><div class="tx"><b>Minh</b> liked your moment<span class="tm">1h ago</span></div><span class="ud" aria-label="Unread"></span></div><div class="ev unread" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.500M12 18h.01"/></svg></span></span><div class="tx"><b>Minh</b> answered the couple quiz<span class="tm">3h ago</span></div><span class="ud" aria-label="Unread"></span></div>
-  <div class="ev unread" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span></span><div class="tx"><b>Minh</b> changed your start date to 14 Feb 2024<span class="tm">5h ago</span></div><span class="ud" aria-label="Unread"></span></div>
-  </section>
-  <div class="day">Earlier</div>
-  <section class="card feed" aria-label="Earlier">
-    <div class="ev" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.300 21a1.940 1.940 0 0 0 3.400 0"/></svg></span></span><div class="tx"><b>Minh</b> nudged you: Mochi would love a visit<span class="tm">Yesterday</span></div></div><div class="ev" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.500 3.500a2.120 2.120 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></span><div class="tx"><b>Minh</b> signed Mochi's profile card<span class="tm">2 days ago</span></div></div><div class="ev" role="button" tabindex="0"><span class="lead"><img class="av" src="assets/everlove-avatar-partner.jpg" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:cover;"><span class="bdg "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M19 8v6M22 11h-6"/><circle cx="9" cy="7" r="4"/></svg></span></span><div class="tx"><b>Minh</b> joined EverLove<span class="tm">3 days ago</span></div></div>
-  </section>
-  <p class="foot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Kept for 30 days</p>
+  <div class="pair">
+    <img class="av you" src="assets/everlove-memoji-linh.jpg" alt="" width="64" height="64">
+    <div class="hb"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.7-3.4 6.8-8.6 11.5z"/></svg></div>
+    <img class="av them" src="assets/everlove-memoji-partner.jpg" alt="" width="64" height="64">
+  </div>
+  <div class="grp"><section class="card"><div class="li"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-4-8 6"/></svg></span><span class="tx">Moments <span>· 12</span></span><button class="tg" role="switch" aria-checked="false" aria-label="Share Moments"></button></div><div class="li"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="tx">Dates <span>· 3</span></span><button class="tg" role="switch" aria-checked="false" aria-label="Share Dates"></button></div><div class="li"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span class="tx">Quiz answers <span>· 5</span></span><button class="tg" role="switch" aria-checked="false" aria-label="Share Quiz answers"></button></div><div class="li"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="16.5" rx="5" ry="4" fill="currentColor" stroke="none"/><circle cx="5.5" cy="11" r="2" fill="currentColor" stroke="none"/><circle cx="9.5" cy="6.5" r="2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="6.5" r="2" fill="currentColor" stroke="none"/><circle cx="18.5" cy="11" r="2" fill="currentColor" stroke="none"/></svg></span><span class="tx">Pet <span>· Mochi</span></span><button class="tg" role="switch" aria-checked="false" aria-label="Share Pet"></button></div></section></div>
+  <p class="note">You can do this later in the Us tab.</p>
+  <div class="foot">
+    <button class="btn btn-plum" disabled>Share selected</button>
+    <button class="link">Keep separate</button>
+  </div>
 </div>
         </main>
+
+
         <!-- Home Indicator -->
         <div class="home-indicator-area">
             <div class="home-indicator"></div>
